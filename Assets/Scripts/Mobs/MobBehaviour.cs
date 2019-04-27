@@ -26,22 +26,20 @@ public class MobBehaviour : NetworkBehaviour {
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
-        if (isServer)
-        {
+        
             bases.Add(GameObject.Find("Base2"));
             bases.Add(GameObject.Find("Base1"));
 
             if (ownerId == 1) target = bases[1].transform;
             else target = bases[0].transform;
-        }
-        else agent.enabled = false;
+        
+        //else agent.enabled = false;
     }
 
 
     void Update() {
 
-        if (isServer)
-        {
+        
             GameObject targetMob = getClosestEnemyInRange();
             GameObject lockTarget = targetMob;
 
@@ -75,7 +73,7 @@ public class MobBehaviour : NetworkBehaviour {
             {
                 transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
             }
-        }
+        
         
         
     }
