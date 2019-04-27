@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerControlls : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class PlayerControlls : MonoBehaviour
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount + 3];
                 enemy.GetComponent<MobBehaviour>().ownerId = 1;
             }
+
+            enemy.GetComponent<NavMeshAgent>().speed = mobs[ID].GetComponent<MobBehaviour>().movingSpeed;
 
             canSpawn[ID] = false;
             StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviour>().spawnTime));
