@@ -25,14 +25,16 @@ public class MobBehaviour : NetworkBehaviour {
     private bool isAttacking = false;
 
     void Start() {
+        agent = GetComponent<NavMeshAgent>();
         if (isServer)
         {
-            bases.Add(GameObject.Find("Base2")); 
-            bases.Add(GameObject.Find("Base1")); 
-            agent = GetComponent<NavMeshAgent>();
+            bases.Add(GameObject.Find("Base2"));
+            bases.Add(GameObject.Find("Base1"));
+
             if (ownerId == 1) target = bases[1].transform;
             else target = bases[0].transform;
         }
+        else agent.enabled = false;
     }
 
 
