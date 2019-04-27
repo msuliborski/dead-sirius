@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerControlls : NetworkBehaviour
 {
+    
     [SerializeField] private GameObject flag;
     
     private int flagCount = 0;
@@ -16,6 +17,7 @@ public class PlayerControlls : NetworkBehaviour
     
    public void Setup()
    {
+        
         _manager = GetComponent<PlayerManager>();
         _base = _manager.Base;
 
@@ -52,8 +54,10 @@ public class PlayerControlls : NetworkBehaviour
 
 
     public void spawnMob(int ID) {
+        ID -= 3; // XDDDD 
         if (canSpawn[ID])
         {
+           
             CmdSpawnEnemy(ID);
 
             /*if (flagCount > 2) {
