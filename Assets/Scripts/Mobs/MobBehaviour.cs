@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class MobBehaviour : MonoBehaviour {
     private NavMeshAgent agent;
     public Transform target;
-    public List<GameObject> bases;
+    
 
     private const string ENEMY_ID_PREFIX = "Enemy ";
 
