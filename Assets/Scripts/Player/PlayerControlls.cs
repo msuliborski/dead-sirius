@@ -86,7 +86,7 @@ public class PlayerControlls : NetworkBehaviour
         ID -= 3; // XDDDD 
         if (canSpawn[ID])
         {
-            Debug.Log("spawn");
+           
             //CmdSpawnEnemy(ID);
             GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
             CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
