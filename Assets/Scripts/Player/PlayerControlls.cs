@@ -65,6 +65,7 @@ public class PlayerControlls : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+                
                 AI.mobsKinds[flagCount][ID]++;
                 mob.GetComponent<NavMeshAgent>().speed = mobs[ID].GetComponent<MobBehaviour>().movingSpeed;
             }
@@ -86,6 +87,7 @@ public class PlayerControlls : MonoBehaviour
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
 
             enemy.baseTarget = _enemyBase.transform;
+            Debug.Log(enemy.baseTarget);
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
 
@@ -115,6 +117,7 @@ public class PlayerControlls : MonoBehaviour
             mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
             enemy.baseTarget = _enemyBase.transform;
+            Debug.Log(enemy.baseTarget);
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
             queue.RemoveAt(0);
@@ -123,4 +126,7 @@ public class PlayerControlls : MonoBehaviour
             StartCoroutine(cooldown(ID, 2f));
         }
     }
+
+
+
 }
