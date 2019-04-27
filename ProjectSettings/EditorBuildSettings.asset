@@ -5,7 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Menu.unity
+    guid: 3c91cd2fd2c3c35d6b12fc6515e4fcdf
+  - enabled: 1
+    path: Assets/Scenes/LobbyTests.unity
+    guid: 2dec1afcb80ac09ebaab0112b8288879
+  - enabled: 1
+    path: Assets/Scenes/tedeTestunio.unity
+    guid: d5553eadf9fc02e4cb461ab9b15cd3b4
+  - enabled: 1
+    path: Assets/Scenes/tedeTestunioMichal.unity
+    guid: 4070dd3eab1948a41887efd96be769f0
   m_configObjects: {}
