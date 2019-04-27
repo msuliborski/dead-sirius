@@ -56,19 +56,25 @@ public class AI : MonoBehaviour
         {
             sum += laneChances[i];
         }
+        Debug.Log("Sum "+ sum);
 
-        _randomLane = Random.Range(0, 1);
+        _randomLane = Random.Range(0f, 1f);
+        Debug.Log("Random "+ _randomLane);
 
-        float temp = 0;
-        for (int i = 0; i < 3; i++)
+        float L0Chance = laneChances[0] / sum;
+        float L1Chance = laneChances[1] / sum;
+        float L2Chance = laneChances[2] / sum;
+
+        if (_randomLane < L0Chance)
         {
-            
-            if (_randomLane <= temp + (laneChances[i] / sum))
-            {
-                chosenLane = i;
-                break;
-            }
-            temp += laneChances[i];
+            chosenLane = 2;
+        } else if (_randomLane >= L2Chance && _randomLane < L0Chance+L1Chance)
+        {
+            chosenLane = 1;
+        }
+        else
+        {
+            chosenLane = 0;
         }
         Debug.Log(chosenLane);
         
@@ -86,15 +92,20 @@ public class AI : MonoBehaviour
 
         _randomMob = Random.Range(0, 1);
 
-        temp = 0;
-        for (int i = 0; i < 3; i++)
+        float M0Chance = kindChances[0] / sum;
+        float M1Chance = kindChances[1] / sum;
+        float M2Chance = kindChances[2] / sum;
+
+        if (_randomMob < M0Chance)
         {
-            if (_randomMob <= temp + (kindChances[i] / sum))
-            {
-                chosenKind = i;
-                break;
-            }
-            temp += kindChances[i];
+            chosenKind = 2;
+        } else if (_randomMob >= M2Chance && _randomMob < M0Chance+M1Chance)
+        {
+            chosenKind = 1;
+        }
+        else
+        {
+            chosenKind = 0;
         }
         
         spawnMob(chosenKind, chosenLane);
