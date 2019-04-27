@@ -26,6 +26,7 @@ public class PlayerControlls : NetworkBehaviour
 
             for (int i = 0; i < _base.transform.childCount; i++)
                 spawns.Add(_base.transform.GetChild(i));
+            _flag.SetActive(true);
             _flag.transform.position = spawns[0].position;
             for (int i = 0; i < 3; i++)
             {
