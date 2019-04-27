@@ -14,7 +14,7 @@ public class MobBehaviour : MonoBehaviour {
     public int attackSpeed;
     public int movingSpeed;
     public int spawnTime;
-    public bool isRanged;
+    public bool atackRange;
 
     public int ownerId;
 
@@ -24,41 +24,51 @@ public class MobBehaviour : MonoBehaviour {
 
 
     void Update() {
-        if (transform.position != target.position) {
-            agent.SetDestination(target.position);
-        }
+
+        GameObject targetMob = getClosestEnemyInRange();
+        GameObject lockTarget = targetMob;
         
 //        if ()
         
+        if (targetMob != null || lockTarget != null) {
+            //wwwweqwewqqqweqweqweqwelockTarget = targetMob;
+            agent.SetDestination(lockTarget.transform.position);
+        }
+        else {
+            if (transform.position != target.position) {
+                agent.SetDestination(target.position);
+            }
+        }
+        
     }
     
-    void getClosestEnemyInRange() {
+    GameObject getClosestEnemyInRange() {
         GameObject[] mobs; 
         GameObject closestMob = null; 
         mobs = GameObject.FindGameObjectsWithTag("Mob"); 
         
         
-        var radiusDistance = 50; // the range of distance
+        var radiusDistance = 200; // the range of distance
         var position = transform.position; 
         
-//        // Iterate through them and find the objects within range 
-//        foreach (var mob in mobs) {
-//            
-//            var diffToMob = (mob.transform.position - position);
-//            if (closestMob != null)
-//            var diffToClosestMob = (closestMob.transform.position - position);
-//            var distanceToMob = diffToMob.sqrMagnitude; 
-//            var distanceToClosestMob = diffToClosestMob.sqrMagnitude; 
-//            if (distanceToMob < radiusDistance && distanceToMob < distanceToClosestMob) { 
-//                cmob.GetComponent.<Renderer>().material.color = colorR; // effect on object
-//                
-//            } 
-//        }
-//
-//        var go : GameObject in gos)  { 
-//            var curDistance = diff.sqrMagnitude; 
-//           
-//        } 
-     
+        // Iterate through them and find the objects within range 
+        foreach (var mob in mobs) {
+            //Debug.Log(mobs.Length);
+            Vector3 diffToMob = mob.transform.position - position;
+            Vector3 diffToClosestMob = new Vector3(9999, 9999, 9999) - position;
+            if (closestMob != null) diffToClosestMob = closestMob.transform.position - position;
+            
+            var distanceToMob = diffToMob.sqrMagnitude; 
+            var distanceToClosestMob = diffToClosestMob.sqrMagnitude; 
+            
+            if (distanceToMob < radiusDistance && distanceToMob < distanceToClosestMob && mob.GetComponent<MobBehaviour>().ownerId != ownerId) {
+                closestMob = mob;
+            } 
+        }
+        if (closestMob != null) Debug.Log("length to closest: " + (closestMob.transform.position - position).sqrMagnitude);
+        return closestMob;
+
+
+
     }
 }
