@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class MobBehaviour : MonoBehaviour {
     private NavMeshAgent agent;
-    public Transform target;
+    public Transform baseTarget;
     public List<GameObject> bases;
 
     private const string ENEMY_ID_PREFIX = "Enemy ";
@@ -43,7 +43,6 @@ public class MobBehaviour : MonoBehaviour {
                 {
                     agent.enabled = false;
                     if (!isAttacking) StartCoroutine(attack(lockTarget));
-                    Debug.Log("chuj");
                 }
                 else
                 {
@@ -54,10 +53,13 @@ public class MobBehaviour : MonoBehaviour {
             }
             else
             {
-                if (transform.position != target.position)
+                if ((baseTarget.transform.position - transform.position).sqrMagnitude < attackRange)
                 {
+                    agent.enabled = false;
+                    if (!isAttacking) StartCoroutine(attack(baseTarget.gameObject));
+                } else {
                     agent.enabled = true;
-                    agent.SetDestination(target.position);
+                    agent.SetDestination(baseTarget.position);
                 }
             }
 
