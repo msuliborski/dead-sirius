@@ -47,7 +47,7 @@ public class PlayerControlls : NetworkBehaviour
     [Command]
     void CmdSpawnEnemy(int ID)
     {
-        NetworkServer.Spawn(Instantiate(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity)));
+        
     }
 
 
@@ -58,8 +58,8 @@ public class PlayerControlls : NetworkBehaviour
         if (canSpawn[ID])
         {
            
-            CmdSpawnEnemy(ID);
-
+            //CmdSpawnEnemy(ID);
+            NetworkServer.Spawn(Instantiate(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity)));
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
                 enemy.GetComponent<MobBehaviour>().ownerId = 0;
