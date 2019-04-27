@@ -86,6 +86,7 @@ public class PlayerControlls : MonoBehaviour
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
 
             enemy.baseTarget = _enemyBase.transform;
+            Debug.Log(enemy.baseTarget);
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
 
@@ -115,6 +116,7 @@ public class PlayerControlls : MonoBehaviour
             mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
             enemy.baseTarget = _enemyBase.transform;
+            Debug.Log(enemy.baseTarget);
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
             queue.RemoveAt(0);

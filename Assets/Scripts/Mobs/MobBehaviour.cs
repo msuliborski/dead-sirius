@@ -26,8 +26,17 @@ public class MobBehaviour : MonoBehaviour {
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
-        if (ownerId == 1) Owner = GameObject.Find("Player");
-        //else AI
+        if (ownerId == 1) {
+            Owner = GameObject.Find("Player");
+            baseTarget = GameObject.Find("Base2").transform;
+        }
+        else { //AI
+          
+            baseTarget = GameObject.Find("Base1").transform;  
+        }
+        
+
+        
     }
 
 
@@ -55,7 +64,7 @@ public class MobBehaviour : MonoBehaviour {
             }
             else
             {
-                if ((baseTarget.transform.position - transform.position).sqrMagnitude < attackRange)
+                if ((baseTarget.transform.position - transform.position).sqrMagnitude < attackRange - baseTarget.localScale.x)
                 {
                     agent.enabled = false;
                     if (!isAttacking) StartCoroutine(attack(baseTarget.gameObject));
