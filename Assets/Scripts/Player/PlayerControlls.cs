@@ -80,10 +80,15 @@ public class PlayerControlls : NetworkBehaviour
     [Command]
     void CmdSpawnMob(Vector3 pos, Quaternion rot, int id)
     {
-        GameObject mob= Instantiate(mobs[id], pos, rot);
+        /*GameObject mob= Instantiate(mobs[id], pos, rot);
         MobBehaviour mb = mob.GetComponent<MobBehaviour>();
         mb.ownerId = _manager.PlayerId;
-        RpcSpawnMob(pos, rot, id);
+        RpcSpawnMob(pos, rot, id);*/
+
+        GameObject mob = Instantiate(mobs[id], pos, rot);
+        MobBehaviour mb = mob.GetComponent<MobBehaviour>();
+        mb.ownerId = _manager.PlayerId;
+        NetworkServer.Spawn(mob);
     }
 
     [ClientRpc]
@@ -103,14 +108,11 @@ public class PlayerControlls : NetworkBehaviour
         {
 
 
-            //CmdSpawnEnemy(ID);
+            CmdSpawnMob(spawns[flagCount].position, Quaternion.identity, ID);
 
             //GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
             // GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-            GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-            MobBehaviour mb = mob.GetComponent<MobBehaviour>();
-            mb.ownerId = _manager.PlayerId;
-            NetworkServer.Spawn(mob);
+            
             
 
             //CmdSpawnMob(spawns[flagCount].position, Quaternion.identity , ID);
