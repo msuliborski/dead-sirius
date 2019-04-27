@@ -83,7 +83,7 @@ public class PlayerControlls : NetworkBehaviour
 
 
     public void spawnMob(int ID) {
-        ID -= 3; // XDDDD 
+       
         if (canSpawn[ID])
         {
            
