@@ -39,12 +39,12 @@ public class PlayerSetup : NetworkBehaviour
                 Debug.Log(id);
             }
 
-            
+            _manager.Setup();
+            GetComponent<PlayerControlls>().Setup();
 
-            
+
         }
-        _manager.Setup();
-        GetComponent<PlayerControlls>().Setup();
+        
     }
 
    

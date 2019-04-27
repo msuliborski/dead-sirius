@@ -20,8 +20,7 @@ public class PlayerControlls : NetworkBehaviour
    {
         
         _manager = GetComponent<PlayerManager>();
-        if (isLocalPlayer)
-        {
+        
             _base = _manager.Base;
 
             for (int i = 0; i < _base.transform.childCount; i++)
@@ -32,7 +31,7 @@ public class PlayerControlls : NetworkBehaviour
             {
                 canSpawn[i] = true;
             }
-        }
+        
     }
 
     void Update()

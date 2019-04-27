@@ -24,14 +24,13 @@ public class PlayerManager : NetworkBehaviour
     
     public void Setup()
     {
-        if (isLocalPlayer)
-        {
+        
             if (transform.position.z < 0)
                 Base = GameObject.Find("Base1");
             else Base = GameObject.Find("Base2");
-        }
+        
 
-        _currentHealth = _maxHealth;
+        //_currentHealth = _maxHealth;
        
     }
 
