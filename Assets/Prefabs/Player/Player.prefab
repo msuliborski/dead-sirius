@@ -134,7 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _toDisable:
   - {fileID: 7842253628167716453}
-  - {fileID: 3294646035560594223}
 --- !u!1001 &3294646036844386344
 PrefabInstance:
   m_ObjectHideFlags: 0

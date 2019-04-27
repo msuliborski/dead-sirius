@@ -19,14 +19,13 @@ public class PlayerSetup : NetworkBehaviour
         if (!isLocalPlayer)
         {
             DisableComponents();
-          
+            
         }
         else
         {
             _sceneCamera = GameObject.Find("Scene Camera").GetComponent<Camera>();
             if (_sceneCamera != null)
                 _sceneCamera.gameObject.SetActive(false);
-            transform.GetChild(0).gameObject.SetActive(false);
             GameManager.LocalPlayer = GetComponent<PlayerManager>();
 
            
@@ -59,6 +58,7 @@ public class PlayerSetup : NetworkBehaviour
 
     private void DisableComponents()
     {
+        transform.GetChild(0).gameObject.SetActive(false);
         for (int i = 0; i < _toDisable.Length; i++)
             _toDisable[i].enabled = false;
     }
