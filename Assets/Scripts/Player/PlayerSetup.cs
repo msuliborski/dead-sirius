@@ -31,13 +31,19 @@ public class PlayerSetup : NetworkBehaviour
            
             _manager.Canvas = GameObject.Find("Canvas");
 
-            for (int id = 0; id < _manager.Canvas.transform.childCount; id++)
-            {
-                _manager.Buttons.Add(_manager.Canvas.transform.GetChild(id).GetComponent<Button>());
-              
-               _manager.Buttons[id].onClick.AddListener(() => GetComponent<PlayerControlls>().spawnMob(id));
-                Debug.Log(id);
-            }
+           
+            _manager.Buttons.Add(_manager.Canvas.transform.GetChild(0).GetComponent<Button>());
+                
+            _manager.Buttons[0].onClick.AddListener(() => GetComponent<PlayerControlls>().spawnMob(0));
+
+            _manager.Buttons.Add(_manager.Canvas.transform.GetChild(1).GetComponent<Button>());
+
+            _manager.Buttons[1].onClick.AddListener(() => GetComponent<PlayerControlls>().spawnMob(1));
+
+
+            _manager.Buttons.Add(_manager.Canvas.transform.GetChild(2).GetComponent<Button>());
+
+            _manager.Buttons[2].onClick.AddListener(() => GetComponent<PlayerControlls>().spawnMob(2));
 
             _manager.Setup();
             GetComponent<PlayerControlls>().Setup();
