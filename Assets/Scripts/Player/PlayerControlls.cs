@@ -76,7 +76,6 @@ public class PlayerControlls : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            Debug.Log(spawns[0].transform.name);
             GameObject temp = Instantiate(mobs[id], pos, rot);
         }
     }
