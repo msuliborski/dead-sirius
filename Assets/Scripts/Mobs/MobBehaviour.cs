@@ -6,12 +6,13 @@ using UnityEngine.AI;
 
 public class MobBehaviour : MonoBehaviour {
     private NavMeshAgent agent;
+
     public Transform baseTarget;
     public List<GameObject> bases;
 
     private const string ENEMY_ID_PREFIX = "Enemy ";
 
-   public int health;
+    public int health;
     public int healthCost;
     public int healthReward;
     public int damage;
@@ -83,7 +84,7 @@ public class MobBehaviour : MonoBehaviour {
     GameObject getClosestEnemyInRange() {
         GameObject[] mobs; 
         GameObject closestMob = null; 
-        mobs = GameObject.FindGameObjectsWithTag("Mob"); 
+        mobs = GameObject.FindGameObjectsWithTag("Mob");
         
         
         var radiusDistance = 200; // the range of distance
