@@ -9,31 +9,27 @@ public class PlayerControlls : MonoBehaviour
 
     void Update()
     {
-        int temp = 100;
 
         if (Input.GetKeyDown(KeyCode.Q))
-            temp = 0;
+            spawnMod(0);
         else if (Input.GetKeyDown(KeyCode.W))
-            temp = 1;
+            spawnMod(1);
         else if (Input.GetKeyDown(KeyCode.E))
-            temp = 2;
+            spawnMod(2);
         else if (Input.GetKeyDown(KeyCode.I))
-            temp = 3;
+            spawnMod(3);
         else if (Input.GetKeyDown(KeyCode.O))
-            temp = 4;
+            spawnMod(4);
         else if (Input.GetKeyDown(KeyCode.P))
-            temp = 5;
+            spawnMod(5);
+    }
 
-        if (temp != 100)
-        {
-            GameObject enemy = Instantiate(mob, spawns[temp].position, Quaternion.identity);
+    void spawnMod(int id) {
+        GameObject enemy = Instantiate(mob, spawns[id].position, Quaternion.identity);
 
-            if (temp + 3 > 5)
-                enemy.GetComponent<MobMovement>().target = spawns[temp - 3];
-
-            else
-                enemy.GetComponent<MobMovement>().target = spawns[temp + 3];
-        }
-        
+        if (id > 2)
+            enemy.GetComponent<MobBehaviour>().target = spawns[id - 3];
+        else
+            enemy.GetComponent<MobBehaviour>().target = spawns[id + 3];
     }
 }
