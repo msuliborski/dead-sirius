@@ -14,6 +14,7 @@ public class PlayerControlls : NetworkBehaviour
     private bool[] canSpawn = new bool[3];
     private PlayerManager _manager;
     private GameObject _base;
+    [SerializeField] private GameObject _flag;
     
    public void Setup()
    {
@@ -23,7 +24,7 @@ public class PlayerControlls : NetworkBehaviour
 
         for (int i = 0; i < _base.transform.childCount; i++)
             spawns.Add(_base.transform.GetChild(i));
-
+        _flag.transform.position = spawns[0].position;
         for (int i = 0; i < 3; i++)
         {
             canSpawn[i] = true;
@@ -40,18 +41,25 @@ public class PlayerControlls : NetworkBehaviour
         else if (Input.GetKeyDown(KeyCode.O))
             flagCount = 2;
         
-        //flag.transform.position = spawns[flagCount].transform.position;
+        flag.transform.position = spawns[flagCount].transform.position;
     }
 
 
-    [Command]
+    /*[Command]
     void CmdSpawnEnemy(int ID)
     {
-        Debug.Log("Command");
-        NetworkServer.Spawn(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity, GameObject.Find(transform.name + " Mobs").transform));
-    }
+        //Debug.Log("Command");
+        //GameObject mob;
+        
+        //RpcSpawnEnemy(mob.GetComponent<NetworkIdentity>());
+        
+    }*/
 
-
+    //[ClientRpc]
+   // void RpcSpawnEnemy(NetworkIdentity id)
+   // {
+    //    ClientScene.FindLocalObject(id)
+   // }
 
 
     public void spawnMob(int ID) {
@@ -59,8 +67,9 @@ public class PlayerControlls : NetworkBehaviour
         if (canSpawn[ID])
         {
             Debug.Log("spawn");
-            CmdSpawnEnemy(ID);
-            
+            //CmdSpawnEnemy(ID);
+            NetworkServer.Spawn(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity));
+
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
                 enemy.GetComponent<MobBehaviour>().ownerId = 0;
@@ -68,10 +77,11 @@ public class PlayerControlls : NetworkBehaviour
             else {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount + 3];
                 enemy.GetComponent<MobBehaviour>().ownerId = 1;
-            }
+            }*/
 
             canSpawn[ID] = false;
-            StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviour>().spawnTime));*/
+            //StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviour>().spawnTime));
+            StartCoroutine(cooldown(ID, 2f));
         }
     }
 
