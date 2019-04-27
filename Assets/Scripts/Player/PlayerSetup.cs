@@ -26,7 +26,7 @@ public class PlayerSetup : NetworkBehaviour
             _sceneCamera = GameObject.Find("Scene Camera").GetComponent<Camera>();
             if (_sceneCamera != null)
                 _sceneCamera.gameObject.SetActive(false);
-           
+            transform.GetChild(0).gameObject.SetActive(false);
             GameManager.LocalPlayer = GetComponent<PlayerManager>();
 
            
