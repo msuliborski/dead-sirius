@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Networking;
 
 public class PlayerControlls : MonoBehaviour
@@ -64,11 +65,15 @@ public class PlayerControlls : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+                AI.mobsKinds[flagCount][ID]++;
+                mob.GetComponent<NavMeshAgent>().speed = mobs[ID].GetComponent<MobBehaviour>().movingSpeed;
             }
                 
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                AI.mobsKinds[lanes[0]][queue[0]]++;
+                mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 if (queue.Count < maxQueue)
@@ -80,7 +85,7 @@ public class PlayerControlls : MonoBehaviour
 
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
 
-            enemy.target = _enemyBase.transform;
+            enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
 
@@ -106,8 +111,10 @@ public class PlayerControlls : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+            AI.mobsKinds[lanes[0]][queue[0]]++;
+            mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
-            enemy.target = _enemyBase.transform;
+            enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
             queue.RemoveAt(0);

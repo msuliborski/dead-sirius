@@ -6,12 +6,13 @@ using UnityEngine.AI;
 
 public class MobBehaviour : MonoBehaviour {
     private NavMeshAgent agent;
-    public Transform target;
-    
+
+    public Transform baseTarget;
+    public List<GameObject> bases;
 
     private const string ENEMY_ID_PREFIX = "Enemy ";
 
-   public int health;
+    public int health;
     public int healthCost;
     public int healthReward;
     public int damage;
@@ -43,7 +44,6 @@ public class MobBehaviour : MonoBehaviour {
                 {
                     agent.enabled = false;
                     if (!isAttacking) StartCoroutine(attack(lockTarget));
-                    Debug.Log("chuj");
                 }
                 else
                 {
@@ -54,10 +54,13 @@ public class MobBehaviour : MonoBehaviour {
             }
             else
             {
-                if (transform.position != target.position)
+                if ((baseTarget.transform.position - transform.position).sqrMagnitude < attackRange)
                 {
+                    agent.enabled = false;
+                    if (!isAttacking) StartCoroutine(attack(baseTarget.gameObject));
+                } else {
                     agent.enabled = true;
-                    agent.SetDestination(target.position);
+                    agent.SetDestination(baseTarget.position);
                 }
             }
 
@@ -81,7 +84,7 @@ public class MobBehaviour : MonoBehaviour {
     GameObject getClosestEnemyInRange() {
         GameObject[] mobs; 
         GameObject closestMob = null; 
-        mobs = GameObject.FindGameObjectsWithTag("Mob"); 
+        mobs = GameObject.FindGameObjectsWithTag("Mob");
         
         
         var radiusDistance = 200; // the range of distance
