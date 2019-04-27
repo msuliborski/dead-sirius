@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,30 +8,33 @@ public class PlayerControlls : NetworkBehaviour
 {
     
     [SerializeField] private GameObject flag;
+    [SerializeField] private int maxQueue = 5;
     
     private int flagCount = 0;
     public List<Transform> spawns;
     public List<GameObject> mobs;
-    private bool[] canSpawn = new bool[3];
+    private bool canSpawn;
     private PlayerManager _manager;
     private GameObject _base;
     [SerializeField] private GameObject _flag;
+    private List<int> queue = new List<int>();
+    private List<int> lanes = new List<int>();
+
+    
     
    public void Setup()
-   {
-        
+   {    
         _manager = GetComponent<PlayerManager>();
         
-            _base = _manager.Base;
+        _base = _manager.Base;
 
-            for (int i = 0; i < _base.transform.childCount; i++)
-                spawns.Add(_base.transform.GetChild(i));
-            _flag.SetActive(true);
-            _flag.transform.position = spawns[0].position;
-            for (int i = 0; i < 3; i++)
-            {
-                canSpawn[i] = true;
-            }
+        for (int i = 0; i < _base.transform.childCount; i++)
+            spawns.Add(_base.transform.GetChild(i));
+        _flag.SetActive(true);
+        _flag.transform.position = spawns[0].position;
+        
+        canSpawn = true;
+           
         
     }
 
@@ -45,6 +49,9 @@ public class PlayerControlls : NetworkBehaviour
             flagCount = 2;
         
         flag.transform.position = spawns[flagCount].transform.position;
+        
+        if(queue.Count > 0)
+            Debug.Log(queue.Count + " / " + lanes[0]);
     }
 
 
@@ -84,13 +91,26 @@ public class PlayerControlls : NetworkBehaviour
 
     public void spawnMob(int ID) {
         
-        if (canSpawn[ID])
+        if (canSpawn)
         {
-            
-            //CmdSpawnEnemy(ID);
-            
-            GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-            
+            GameObject mob;
+            if (queue.Count == 0)
+            {
+                mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            }
+                
+            else
+            {
+                mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                queue.RemoveAt(0);
+                lanes.RemoveAt(0);
+                if (queue.Count < maxQueue)
+                {
+                    queue.Add(ID);
+                    lanes.Add(flagCount);
+                }
+            }
+                
             CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
@@ -101,9 +121,17 @@ public class PlayerControlls : NetworkBehaviour
                 enemy.GetComponent<MobBehaviour>().ownerId = 1;
             }*/
 
-            canSpawn[ID] = false;
+            canSpawn = false;
             //StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviour>().spawnTime));
             StartCoroutine(cooldown(ID, 2f));
+        }
+        else
+        {
+            if (queue.Count < maxQueue)
+            {
+                queue.Add(ID);
+                lanes.Add(flagCount);
+            }
         }
     }
 
@@ -111,6 +139,15 @@ public class PlayerControlls : NetworkBehaviour
     IEnumerator cooldown(int ID, float time)
     {
         yield return new WaitForSeconds(time);
-        canSpawn[ID] = true;
+        canSpawn = true;
+        if (queue.Count != 0)
+        {
+            GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+            queue.RemoveAt(0);
+            lanes.RemoveAt(0);
+            CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
+            canSpawn = false;
+            StartCoroutine(cooldown(ID, 2f));
+        }
     }
 }
