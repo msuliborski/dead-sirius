@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour
@@ -11,8 +13,14 @@ public class PlayerManager : NetworkBehaviour
     [SerializeField] private float _maxHealth = 100;
 
     [SyncVar] private float _currentHealth;
+    
+    public GameObject Canvas { get; set; }
 
     public GameObject Base { get; set; }
+
+    private List<Button> _buttons = new List<Button>();
+
+    public List<Button> Buttons { get { return _buttons; } }
     
     public void Setup()
     {

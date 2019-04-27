@@ -108,7 +108,6 @@ public class HexMapCamera : MonoBehaviour
 
     void AdjustPositionMouse(float xDelta, float zDelta)
     {
-        Debug.Log("kurwa");
         Vector3 direction = transform.localRotation * new Vector3(xDelta, 0f, zDelta).normalized;
         float distance = Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, _zoom) * Time.deltaTime;
         Vector3 position = transform.localPosition;
