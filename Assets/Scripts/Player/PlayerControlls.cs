@@ -10,7 +10,7 @@ public class PlayerControlls : MonoBehaviour
     
     [SerializeField] private GameObject flag;
     [SerializeField] private int maxQueue = 5;
-    
+    public int Health;
     private int flagCount = 0;
     public List<Transform> spawns;
     public List<GameObject> mobs;
