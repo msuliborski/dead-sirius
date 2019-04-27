@@ -66,18 +66,23 @@ public class PlayerControlls : NetworkBehaviour
 
 
     [Command]
-    void CmdSpawnMob(Vector3 pos, Quaternion rot, int id)
+    void CmdSpawnMob(Vector3 pos, Quaternion rot, int id, int ownerId)
     {
-        RpcSpawnMob(pos, rot, id);
+        
+        RpcSpawnMob(pos, rot, id, ownerId);
     }
 
     [ClientRpc]
-    void RpcSpawnMob(Vector3 pos, Quaternion rot, int id)
+    void RpcSpawnMob(Vector3 pos, Quaternion rot, int id, int ownerId)
     {
         if (!isLocalPlayer)
         {
 
             GameObject temp = Instantiate(mobs[id], pos, rot);
+            if (isServer && ownerId != -1)
+            {
+                temp.GetComponent<MobBehaviour>().ownerId = ownerId;
+            }
         }
     }
 
@@ -86,12 +91,17 @@ public class PlayerControlls : NetworkBehaviour
         
         if (canSpawn[ID])
         {
-            
+
             //CmdSpawnEnemy(ID);
-            
+            int ownerId = _manager.PlayerId;
             GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-            
-            CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
+            if (isServer)
+            { ownerId = -1; // already spawned on server
+                mob.GetComponent<MobBehaviour>().ownerId = ownerId;
+            }
+
+
+            CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID, ownerId);
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
                 enemy.GetComponent<MobBehaviour>().ownerId = 0;
