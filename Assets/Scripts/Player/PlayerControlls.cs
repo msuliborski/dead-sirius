@@ -48,7 +48,7 @@ public class PlayerControlls : NetworkBehaviour
     void CmdSpawnEnemy(int ID)
     {
         Debug.Log("Command");
-        NetworkServer.Spawn(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity));
+        NetworkServer.Spawn(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity, GameObject.Find(transform.name + " Mobs").transform));
     }
 
 
