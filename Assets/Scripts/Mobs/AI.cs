@@ -48,7 +48,7 @@ public class AI : MonoBehaviour
             {
                 laneChances[i] += mobsKinds[i][j] * 3;
             }
-            Debug.Log(laneChances[i]);
+            Debug.Log(i + "/" + laneChances[i]);
         }
 
         float sum = 0;
@@ -154,7 +154,6 @@ public class AI : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-            AI.mobsKinds[lanes[0]][queue[0]]++;
             mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
             enemy.baseTarget = _enemyBase.transform;
