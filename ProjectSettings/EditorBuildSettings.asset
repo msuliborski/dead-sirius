@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tedeTestunioMichal.unity
     guid: 4070dd3eab1948a41887efd96be769f0
+  - enabled: 1
+    path: Assets/Scenes/mapaTest.unity
+    guid: 4d902c2d2f39d7507b19a879ccaf74aa
   m_configObjects: {}
