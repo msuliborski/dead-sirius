@@ -29,6 +29,7 @@ public class PlayerSetup : NetworkBehaviour
             
         }
         GetComponent<PlayerManager>().Setup();
+        GetComponent<PlayerControlls>().Setup();
     }
 
 
