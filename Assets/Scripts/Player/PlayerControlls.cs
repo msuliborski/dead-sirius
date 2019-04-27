@@ -107,10 +107,13 @@ public class PlayerControlls : NetworkBehaviour
 
             //GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
             // GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-            //NetworkServer.Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-            // MobBehaviour mb = mob.GetComponent<MobBehaviour>();
-            // mb.ownerId = _manager.PlayerId;
-            CmdSpawnMob(spawns[flagCount].position, Quaternion.identity , ID);
+            GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            MobBehaviour mb = mob.GetComponent<MobBehaviour>();
+            mb.ownerId = _manager.PlayerId;
+            NetworkServer.Spawn(mob);
+            
+
+            //CmdSpawnMob(spawns[flagCount].position, Quaternion.identity , ID);
 
            /* GameObject mob;
             if (queue.Count == 0)

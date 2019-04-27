@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class MobBehaviour : NetworkBehaviour {
     private NavMeshAgent agent;
     public Transform target;
-
+    public List<GameObject> bases;
 
     private const string ENEMY_ID_PREFIX = "Enemy ";
 
@@ -27,7 +27,11 @@ public class MobBehaviour : NetworkBehaviour {
     void Start() {
         if (isServer)
         {
+            bases.Add(GameObject.Find("Base2")); 
+            bases.Add(GameObject.Find("Base1")); 
             agent = GetComponent<NavMeshAgent>();
+            if (ownerId == 1) target = bases[1].transform;
+            else target = bases[0].transform;
         }
     }
 
