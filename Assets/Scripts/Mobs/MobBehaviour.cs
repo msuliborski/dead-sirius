@@ -110,7 +110,9 @@ public class MobBehaviour : MonoBehaviour {
             var distanceToMob = diffToMob.sqrMagnitude; 
             var distanceToClosestMob = diffToClosestMob.sqrMagnitude; 
             
-            if (distanceToMob < radiusDistance && distanceToMob < distanceToClosestMob && mob.GetComponent<MobBehaviour>().ownerId != ownerId) {
+
+
+            if (distanceToMob < radiusDistance && distanceToMob < distanceToClosestMob && mob.GetComponent<MobBehaviour>().ownerId != ownerId && LaneIndex == mob.GetComponent<MobBehaviour>().LaneIndex) {
                 closestMob = mob;
             } 
         }

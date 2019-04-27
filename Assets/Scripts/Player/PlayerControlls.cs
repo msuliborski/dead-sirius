@@ -65,6 +65,7 @@ public class PlayerControlls : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+                
                 AI.mobsKinds[flagCount][ID]++;
                 mob.GetComponent<NavMeshAgent>().speed = mobs[ID].GetComponent<MobBehaviour>().movingSpeed;
             }
@@ -125,4 +126,7 @@ public class PlayerControlls : MonoBehaviour
             StartCoroutine(cooldown(ID, 2f));
         }
     }
+
+
+
 }

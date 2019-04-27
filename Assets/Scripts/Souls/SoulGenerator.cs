@@ -9,13 +9,19 @@ public class SoulGenerator : MonoBehaviour
     [SerializeField] private int lowerRange;
     [SerializeField] private int upperRange;
     private int delay;
-    [SerializeField] List<Transform> SoulSpawns;
+    List<Transform> SoulSpawns = new List<Transform>();
     private Transform spawnPoint;
     bool processingCouroutine = false;
     
     // Start is called before the first frame update
     void Start()
     {
+        Transform parent = GameObject.Find("Portals").transform;
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            SoulSpawns.Add(parent.GetChild(i));
+            SoulSpawns[i].position = new Vector3(SoulSpawns[i].position.x, SoulSpawns[i].position.y + 15, SoulSpawns[i].position.z);
+        }
         int randIndex = Random.Range(0, SoulSpawns.Count - 1);
         spawnPoint = SoulSpawns[randIndex];
         Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
