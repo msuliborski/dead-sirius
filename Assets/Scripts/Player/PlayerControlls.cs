@@ -28,13 +28,19 @@ public class PlayerControlls : NetworkBehaviour
         
         _base = _manager.Base;
 
-        for (int i = 0; i < _base.transform.childCount; i++)
-            spawns.Add(_base.transform.GetChild(i));
-        _flag.SetActive(true);
-        _flag.transform.position = spawns[0].position;
+
+            
+        if (isLocalPlayer)
+        {
+            _flag.SetActive(true);
         
-        canSpawn = true;
-           
+            for (int i = 0; i < _base.transform.childCount; i++)
+                spawns.Add(_base.transform.GetChild(i));
+            _flag.transform.position = spawns[0].position;
+            canSpawn = true;
+
+        }
+
         
     }
 
@@ -74,13 +80,16 @@ public class PlayerControlls : NetworkBehaviour
     [Command]
     void CmdSpawnMob(Vector3 pos, Quaternion rot, int id)
     {
+        GameObject mob= Instantiate(mobs[id], pos, rot);
+        MobBehaviour mb = mob.GetComponent<MobBehaviour>();
+        mb.ownerId = _manager.PlayerId;
         RpcSpawnMob(pos, rot, id);
     }
 
     [ClientRpc]
     void RpcSpawnMob(Vector3 pos, Quaternion rot, int id)
     {
-        if (!isLocalPlayer)
+        if (!isServer)
         {
 
             GameObject temp = Instantiate(mobs[id], pos, rot);
@@ -92,7 +101,18 @@ public class PlayerControlls : NetworkBehaviour
         
         if (canSpawn)
         {
-            GameObject mob;
+
+
+            //CmdSpawnEnemy(ID);
+
+            //GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            // GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            //NetworkServer.Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            // MobBehaviour mb = mob.GetComponent<MobBehaviour>();
+            // mb.ownerId = _manager.PlayerId;
+            CmdSpawnMob(spawns[flagCount].position, Quaternion.identity , ID);
+
+           /* GameObject mob;
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
@@ -118,15 +138,8 @@ public class PlayerControlls : NetworkBehaviour
             MobBehaviour mb = mob.GetComponent<MobBehaviour>();
             mb.ownerId = _manager.PlayerId;
 
-            CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
-            /*if (flagCount > 2) {
-                enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
-                enemy.GetComponent<MobBehaviour>().ownerId = 0;
-            }
-            else {
-                enemy.GetComponent<MobBehaviour>().target = spawns[flagCount + 3];
-                enemy.GetComponent<MobBehaviour>().ownerId = 1;
-            }*/
+            CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID); */
+
 
             canSpawn = false;
             //StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviour>().spawnTime));

@@ -20,7 +20,7 @@ public class MobBehaviour : NetworkBehaviour {
     public float spawnTime;
     public float attackRange;
 
-    [SyncVar] public int ownerId;
+    public int ownerId;
 
     private bool isAttacking = false;
 

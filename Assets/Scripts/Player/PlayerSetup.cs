@@ -45,12 +45,13 @@ public class PlayerSetup : NetworkBehaviour
 
             _manager.Buttons[2].onClick.AddListener(() => GetComponent<PlayerControlls>().spawnMob(2));
 
-            _manager.Setup();
-            GetComponent<PlayerControlls>().Setup();
+            
+            
 
 
         }
-        
+        _manager.Setup();
+        GetComponent<PlayerControlls>().Setup();
     }
 
    
