@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlls : MonoBehaviour
-{
+public class PlayerControlls : MonoBehaviour {
     [SerializeField] private GameObject mob;
     public List<Transform> spawns;
 
-    void Update()
-    {
-
+    void Update() {
         if (Input.GetKeyDown(KeyCode.Q))
             spawnMod(0);
         else if (Input.GetKeyDown(KeyCode.W))
@@ -27,9 +24,12 @@ public class PlayerControlls : MonoBehaviour
     void spawnMod(int id) {
         GameObject enemy = Instantiate(mob, spawns[id].position, Quaternion.identity);
 
-        if (id > 2)
+        if (id > 2) {
             enemy.GetComponent<MobBehaviour>().target = spawns[id - 3];
-        else
+            enemy.GetComponent<MobBehaviour>().ownerId = 1;
+        } else {
             enemy.GetComponent<MobBehaviour>().target = spawns[id + 3];
+            enemy.GetComponent<MobBehaviour>().ownerId = 0;
+        }
     }
 }

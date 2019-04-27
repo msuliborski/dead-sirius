@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5345496185421628414}
   - component: {fileID: 5345496185421628415}
   m_Layer: 9
-  m_Name: Capsule
-  m_TagString: Untagged
+  m_Name: ghost-melee
+  m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,3 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  health: 150
+  healthCost: 30
+  damage: 0
+  attackSpeed: 0
+  movingSpeed: 0
+  spawnTime: 0
+  isRanged: 0
