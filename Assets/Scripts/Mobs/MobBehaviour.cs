@@ -11,12 +11,14 @@ public class MobBehaviour : MonoBehaviour {
     public int healthCost;
     public int healthReward;
     public int damage;
-    public int attackSpeed;
-    public int movingSpeed;
-    public int spawnTime;
-    public bool atackRange;
+    public float attackSpeed;
+    public float movingSpeed;
+    public float spawnTime;
+    public float attackRange;
 
     public int ownerId;
+
+    private bool isAttacking = false;
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -28,18 +30,35 @@ public class MobBehaviour : MonoBehaviour {
         GameObject targetMob = getClosestEnemyInRange();
         GameObject lockTarget = targetMob;
         
-//        if ()
+        if (health <= 0) Destroy(gameObject);
         
         if (targetMob != null || lockTarget != null) {
-            //wwwweqwewqqqweqweqweqwelockTarget = targetMob;
-            agent.SetDestination(lockTarget.transform.position);
+            if ((lockTarget.transform.position - transform.position).sqrMagnitude < attackRange) {
+                agent.enabled = false;
+                if (!isAttacking) StartCoroutine(attack(lockTarget));
+                Debug.Log("chuj");
+            } else {
+                agent.enabled = true;
+                agent.SetDestination(lockTarget.transform.position);
+            }
+            
         }
         else {
             if (transform.position != target.position) {
+                agent.enabled = true;
                 agent.SetDestination(target.position);
             }
         }
         
+        
+    }
+
+    IEnumerator attack(GameObject target) {
+        isAttacking = true;
+        yield return new WaitForSeconds(attackSpeed);
+        //animacja
+        target.GetComponent<MobBehaviour>().health -= damage;
+        isAttacking = false;
     }
     
     GameObject getClosestEnemyInRange() {

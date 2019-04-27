@@ -28,6 +28,12 @@ public class PlayerControlls : MonoBehaviour
             flagCount = 1;
         else if (Input.GetKeyDown(KeyCode.Q))
             flagCount = 2;
+        else if (Input.GetKeyDown(KeyCode.I))
+            flagCount = 3;
+        else if (Input.GetKeyDown(KeyCode.O))
+            flagCount = 4;
+        else if (Input.GetKeyDown(KeyCode.P))
+            flagCount = 5;
 
         flag.transform.position = spawns[flagCount].transform.position;
     }
@@ -37,10 +43,14 @@ public class PlayerControlls : MonoBehaviour
         {
             GameObject enemy = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
 
-            if (flagCount > 2)
+            if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
-            else
+                enemy.GetComponent<MobBehaviour>().ownerId = 0;
+            }
+            else {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount + 3];
+                enemy.GetComponent<MobBehaviour>().ownerId = 1;
+            }
 
             canSpawn[ID] = false;
             StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviour>().spawnTime));
@@ -48,7 +58,7 @@ public class PlayerControlls : MonoBehaviour
     }
 
 
-    IEnumerator cooldown(int ID, int time)
+    IEnumerator cooldown(int ID, float time)
     {
         yield return new WaitForSeconds(time);
         canSpawn[ID] = true;

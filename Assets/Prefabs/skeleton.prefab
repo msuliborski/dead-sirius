@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5593635088211557044}
   - component: {fileID: 7264883283502684719}
   - component: {fileID: 7354314796375051792}
+  - component: {fileID: 9153779247402139583}
   m_Layer: 0
-  m_Name: skelet
+  m_Name: skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,11 +49,13 @@ MonoBehaviour:
   target: {fileID: 0}
   health: 0
   healthCost: 0
+  healthReward: 0
   damage: 0
   attackSpeed: 0
   movingSpeed: 0
   spawnTime: 5
-  isRanged: 0
+  attackRange: 0
+  ownerId: 0
 --- !u!195 &7354314796375051792
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -75,6 +78,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &9153779247402139583
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621533389805398573}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 10
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4475332217956817053
 GameObject:
   m_ObjectHideFlags: 0
