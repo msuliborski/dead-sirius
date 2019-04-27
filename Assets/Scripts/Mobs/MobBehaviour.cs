@@ -89,7 +89,7 @@ public class MobBehaviour : NetworkBehaviour {
     GameObject getClosestEnemyInRange() {
         GameObject[] mobs; 
         GameObject closestMob = null; 
-        mobs = GameObject.FindGameObjectsWithTag("Mob"); 
+        mobs = GameObject.FindGameObjectsWithTag("Mob");
         
         
         var radiusDistance = 200; // the range of distance
