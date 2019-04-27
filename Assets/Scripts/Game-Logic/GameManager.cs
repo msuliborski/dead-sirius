@@ -49,7 +49,9 @@ public class GameManager : NetworkBehaviour
     private static Dictionary<string, PlayerManager> _activePlayers = new Dictionary<string, PlayerManager>();
     public static Dictionary<string, PlayerManager> Players { get { return _players; } }
     public static Dictionary<string, PlayerManager> ActivePlayers { get { return _activePlayers; } }
-    
+    //public static Dictionary<string, MobBehaviour> _enemies = new Dictionary<string, MobBehaviour>();
+    //public static Dictionary<string, MobBehaviour> Enemies { get { return _enemies; } }
+
     public static void RegisterPlayer(string netId, PlayerManager player)
     {
         string playerId = PLAYER_ID_PREFIX + netId;

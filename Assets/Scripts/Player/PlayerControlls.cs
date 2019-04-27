@@ -50,8 +50,7 @@ public class PlayerControlls : NetworkBehaviour
         
         flag.transform.position = spawns[flagCount].transform.position;
         
-        if(queue.Count > 0)
-            Debug.Log(queue.Count + " / " + lanes[0]);
+        
     }
 
 
@@ -111,6 +110,14 @@ public class PlayerControlls : NetworkBehaviour
                 }
             }
                 
+
+            
+            //CmdSpawnEnemy(ID);
+            
+            //GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            MobBehaviour mb = mob.GetComponent<MobBehaviour>();
+            mb.ownerId = _manager.PlayerId;
+
             CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];

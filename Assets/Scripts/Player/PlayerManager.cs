@@ -13,6 +13,7 @@ public class PlayerManager : NetworkBehaviour
     [SerializeField] private float _maxHealth = 100;
 
     [SyncVar] private float _currentHealth;
+    [SyncVar] public int PlayerId;
     
     public GameObject Canvas { get; set; }
 
@@ -24,13 +25,20 @@ public class PlayerManager : NetworkBehaviour
     
     public void Setup()
     {
-        
-            if (transform.position.z < 0)
-                Base = GameObject.Find("Base1");
-            else Base = GameObject.Find("Base2");
+
+        if (transform.position.z < 0)
+        {
+            Base = GameObject.Find("Base1");
+            PlayerId = 1;
+        }
+        else
+        {
+            Base = GameObject.Find("Base2");
+            PlayerId = 2;
+        }
         
 
-        //_currentHealth = _maxHealth;
+        _currentHealth = _maxHealth;
        
     }
 

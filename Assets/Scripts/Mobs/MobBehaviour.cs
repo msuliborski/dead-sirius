@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class MobBehaviour : MonoBehaviour {
+public class MobBehaviour : NetworkBehaviour {
     private NavMeshAgent agent;
     public Transform target;
 
-    public int health;
+
+    private const string ENEMY_ID_PREFIX = "Enemy ";
+
+    [SyncVar] public int health;
     public int healthCost;
     public int healthReward;
     public int damage;
@@ -16,7 +20,7 @@ public class MobBehaviour : MonoBehaviour {
     public float spawnTime;
     public float attackRange;
 
-    public int ownerId;
+    [SyncVar] public int ownerId;
 
     private bool isAttacking = false;
 
@@ -27,33 +31,42 @@ public class MobBehaviour : MonoBehaviour {
 
     void Update() {
 
-        GameObject targetMob = getClosestEnemyInRange();
-        GameObject lockTarget = targetMob;
-        
-        if (health <= 0) Destroy(gameObject);
-        
-        if (targetMob != null || lockTarget != null) {
-            if ((lockTarget.transform.position - transform.position).sqrMagnitude < attackRange) {
-                agent.enabled = false;
-                if (!isAttacking) StartCoroutine(attack(lockTarget));
-                Debug.Log("chuj");
-            } else {
-                agent.enabled = true;
-                agent.SetDestination(lockTarget.transform.position);
-            }
-            
-        }
-        else {
-            if (transform.position != target.position) {
-                agent.enabled = true;
-                agent.SetDestination(target.position);
-            }
-        }
-        
-        if (agent.velocity.sqrMagnitude > Mathf.Epsilon) {
-            transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
-        }
+        if (isServer)
+        {
+            GameObject targetMob = getClosestEnemyInRange();
+            GameObject lockTarget = targetMob;
 
+            if (health <= 0) Destroy(gameObject);
+
+            if (targetMob != null || lockTarget != null)
+            {
+                if ((lockTarget.transform.position - transform.position).sqrMagnitude < attackRange)
+                {
+                    agent.enabled = false;
+                    if (!isAttacking) StartCoroutine(attack(lockTarget));
+                    Debug.Log("chuj");
+                }
+                else
+                {
+                    agent.enabled = true;
+                    agent.SetDestination(lockTarget.transform.position);
+                }
+
+            }
+            else
+            {
+                if (transform.position != target.position)
+                {
+                    agent.enabled = true;
+                    agent.SetDestination(target.position);
+                }
+            }
+
+            if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
+            {
+                transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+            }
+        }
         
         
     }
