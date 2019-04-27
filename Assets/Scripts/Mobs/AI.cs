@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
     [SerializeField] private float _hp;
     private int maxQueue = 5;
     public static int[][] mobsKinds = new int[3][];
-    private int[] laneChances = new int[3];
-    private int[] kindChances = new int[3];
+    private float[] laneChances = new float[3];
+    private float[] kindChances = new float[3];
     private float _randomLane = 0;
     private float _randomMob = 0;
     private bool canSpawn = true;
@@ -16,14 +17,17 @@ public class AI : MonoBehaviour
     private List<int> lanes = new List<int>();
     public List<Transform> spawns;
     public List<GameObject> mobs;
+    private GameObject _enemyBase;
 
     private int chosenLane;
     private int chosenKind;
 
     void Start()
     {
+        _enemyBase = GameObject.Find("Base1");
         for (int i = 0; i < 3; i++)
         {
+            mobsKinds[i] = new int[3];
             laneChances[i] = 10;
             kindChances[i] = 10;
         }
@@ -44,6 +48,7 @@ public class AI : MonoBehaviour
             {
                 laneChances[i] += mobsKinds[i][j] * 3;
             }
+            Debug.Log(laneChances[i]);
         }
 
         float sum = 0;
@@ -54,9 +59,10 @@ public class AI : MonoBehaviour
 
         _randomLane = Random.Range(0, 1);
 
-        int temp = 0;
+        float temp = 0;
         for (int i = 0; i < 3; i++)
         {
+            
             if (_randomLane <= temp + (laneChances[i] / sum))
             {
                 chosenLane = i;
@@ -64,7 +70,7 @@ public class AI : MonoBehaviour
             }
             temp += laneChances[i];
         }
-        
+        Debug.Log(chosenLane);
         
         /////////////Choosing mob/////////////////
         for (int i = 0; i < 3; i++)
@@ -100,15 +106,17 @@ public class AI : MonoBehaviour
         
         if (canSpawn)
         {
-             GameObject mob;
+            GameObject mob;
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[lane].position, Quaternion.identity);
+                mob.GetComponent<NavMeshAgent>().speed = mobs[ID].GetComponent<MobBehaviour>().movingSpeed;
             }
                 
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 if (queue.Count < maxQueue)
@@ -118,11 +126,15 @@ public class AI : MonoBehaviour
                 }
             }
             
+            MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
 
+            enemy.baseTarget = _enemyBase.transform;
+            enemy.LaneIndex = lane;
+            enemy.ownerId = 1;
 
             canSpawn = false;
             
-            StartCoroutine(cooldown(ID, 2f));
+            StartCoroutine(cooldown(ID, 5f));
         }
         else
         {
@@ -142,11 +154,16 @@ public class AI : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+            AI.mobsKinds[lanes[0]][queue[0]]++;
+            mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
+            MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
+            enemy.baseTarget = _enemyBase.transform;
+            enemy.LaneIndex = chosenLane;
+            enemy.ownerId = 1;
             queue.RemoveAt(0);
             lanes.RemoveAt(0);
-            
             canSpawn = false;
-            StartCoroutine(cooldown(ID, 2f));
+            StartCoroutine(cooldown(ID, 5f));
         }
     }
 }
