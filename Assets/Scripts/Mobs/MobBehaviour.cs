@@ -8,6 +8,9 @@ public class MobBehaviour : NetworkBehaviour {
     private NavMeshAgent agent;
     public Transform target;
 
+
+    private const string ENEMY_ID_PREFIX = "Enemy ";
+
     [SyncVar] public int health;
     public int healthCost;
     public int healthReward;
@@ -17,7 +20,7 @@ public class MobBehaviour : NetworkBehaviour {
     public float spawnTime;
     public float attackRange;
 
-    public int ownerId;
+    [SyncVar] public int ownerId;
 
     private bool isAttacking = false;
 
