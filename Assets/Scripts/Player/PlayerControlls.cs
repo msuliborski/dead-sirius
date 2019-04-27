@@ -74,7 +74,6 @@ public class PlayerControlls : NetworkBehaviour
         if (!isLocalPlayer)
         {
             GameObject temp = Instantiate(mobs[id], pos, rot);
-            temp.GetComponent<BoxCollider>().enabled = true;
         }
     }
 
