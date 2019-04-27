@@ -56,10 +56,27 @@ public class PlayerControlls : NetworkBehaviour
     }*/
 
     //[ClientRpc]
-   // void RpcSpawnEnemy(NetworkIdentity id)
-   // {
+    // void RpcSpawnEnemy(NetworkIdentity id)
+    // {
     //    ClientScene.FindLocalObject(id)
-   // }
+    // }
+
+
+    [Command]
+    void CmdSpawnMob(Vector3 pos, Quaternion rot, int id)
+    {
+        RpcSpawnMob(pos, rot, id);
+    }
+
+    [ClientRpc]
+    void RpcSpawnMob(Vector3 pos, Quaternion rot, int id)
+    {
+        if (!isLocalPlayer)
+        {
+            GameObject temp = Instantiate(mobs[id], pos, rot);
+            temp.GetComponent<BoxCollider>().enabled = true;
+        }
+    }
 
 
     public void spawnMob(int ID) {
@@ -68,8 +85,8 @@ public class PlayerControlls : NetworkBehaviour
         {
             Debug.Log("spawn");
             //CmdSpawnEnemy(ID);
-            NetworkServer.Spawn(Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity));
-
+            GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
                 enemy.GetComponent<MobBehaviour>().ownerId = 0;
