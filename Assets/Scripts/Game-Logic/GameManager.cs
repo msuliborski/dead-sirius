@@ -11,7 +11,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private MatchSettings _matchSettings;
     [SyncVar] public int ReadyPlayersCnt = 0;            
     public MatchSettings MatchSettings { get { return _matchSettings; } set { _matchSettings = value; } }
-   
+    
    
     void Start()
     {
