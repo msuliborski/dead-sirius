@@ -33,7 +33,7 @@ public class PlayerControlls : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
             flagCount = 0;
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.W))    
             flagCount = 1;
         else if (Input.GetKeyDown(KeyCode.Q))
             flagCount = 2;
