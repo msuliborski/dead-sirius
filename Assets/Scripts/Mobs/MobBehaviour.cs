@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Networking;
 
-public class MobBehaviour : NetworkBehaviour {
+
+public class MobBehaviour : MonoBehaviour {
     private NavMeshAgent agent;
     public Transform target;
     public List<GameObject> bases;
 
     private const string ENEMY_ID_PREFIX = "Enemy ";
 
-    [SyncVar] public int health;
+   public int health;
     public int healthCost;
     public int healthReward;
     public int damage;
@@ -19,21 +19,13 @@ public class MobBehaviour : NetworkBehaviour {
     public float movingSpeed;
     public float spawnTime;
     public float attackRange;
-
+    public int LaneIndex;
     public int ownerId;
-
     private bool isAttacking = false;
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         
-            bases.Add(GameObject.Find("Base2"));
-            bases.Add(GameObject.Find("Base1"));
-
-            if (ownerId == 1) target = bases[1].transform;
-            else target = bases[0].transform;
-        
-        //else agent.enabled = false;
     }
 
 
