@@ -76,6 +76,7 @@ public class PlayerControlls : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
+
             GameObject temp = Instantiate(mobs[id], pos, rot);
         }
     }
@@ -85,9 +86,11 @@ public class PlayerControlls : NetworkBehaviour
         
         if (canSpawn[ID])
         {
-           
+            
             //CmdSpawnEnemy(ID);
+            
             GameObject mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+            
             CmdSpawnMob(mob.transform.position, mob.transform.rotation, ID);
             /*if (flagCount > 2) {
                 enemy.GetComponent<MobBehaviour>().target = spawns[flagCount - 3];
