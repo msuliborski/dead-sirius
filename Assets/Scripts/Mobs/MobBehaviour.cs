@@ -25,7 +25,10 @@ public class MobBehaviour : NetworkBehaviour {
     private bool isAttacking = false;
 
     void Start() {
-        agent = GetComponent<NavMeshAgent>();
+        if (isServer)
+        {
+            agent = GetComponent<NavMeshAgent>();
+        }
     }
 
 
