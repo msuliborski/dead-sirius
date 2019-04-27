@@ -64,11 +64,13 @@ public class PlayerControlls : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+                AI.mobsKinds[flagCount][ID]++;
             }
                 
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                AI.mobsKinds[lanes[0]][queue[0]]++;
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 if (queue.Count < maxQueue)
@@ -106,6 +108,7 @@ public class PlayerControlls : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+            AI.mobsKinds[lanes[0]][queue[0]]++;
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
             enemy.target = _enemyBase.transform;
             enemy.LaneIndex = flagCount;
