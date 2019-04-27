@@ -20,14 +20,17 @@ public class PlayerControlls : NetworkBehaviour
    {
         
         _manager = GetComponent<PlayerManager>();
-        _base = _manager.Base;
-
-        for (int i = 0; i < _base.transform.childCount; i++)
-            spawns.Add(_base.transform.GetChild(i));
-        _flag.transform.position = spawns[0].position;
-        for (int i = 0; i < 3; i++)
+        if (isLocalPlayer)
         {
-            canSpawn[i] = true;
+            _base = _manager.Base;
+
+            for (int i = 0; i < _base.transform.childCount; i++)
+                spawns.Add(_base.transform.GetChild(i));
+            _flag.transform.position = spawns[0].position;
+            for (int i = 0; i < 3; i++)
+            {
+                canSpawn[i] = true;
+            }
         }
     }
 
