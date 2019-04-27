@@ -9,7 +9,7 @@ public class MobBehaviour : MonoBehaviour {
 
     public Transform baseTarget;
     public List<GameObject> bases;
-
+    public GameObject Owner;
     private const string ENEMY_ID_PREFIX = "Enemy ";
 
     public int health;
@@ -26,7 +26,8 @@ public class MobBehaviour : MonoBehaviour {
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
-        
+        if (ownerId == 1) Owner = GameObject.Find("Player");
+        //else AI
     }
 
 

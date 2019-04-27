@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseScript : MonoBehaviour {
     
-    public int health;
+    
     
     void Start()
     {

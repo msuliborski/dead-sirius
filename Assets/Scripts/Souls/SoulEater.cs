@@ -12,7 +12,11 @@ public class SoulEater : MonoBehaviour
     {
         if (other.gameObject.tag == "Soul")
         {
-            //if (mb.ownerId == 1)
+            if (mb.ownerId == 1)
+                mb.Owner.GetComponent<PlayerControlls>().Health += 450;
+            else // same for AI
+
+            Destroy(other.gameObject);
 
 
         }
