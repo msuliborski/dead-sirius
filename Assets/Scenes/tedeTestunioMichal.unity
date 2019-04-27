@@ -672,6 +672,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1621533389805398573, guid: e39ac0d8d4461c084a6a5a3ee420d92d,
         type: 3}
+    - target: {fileID: 3041406342502215934, guid: 073947f950d4f2fd599365c522c0559e,
+        type: 3}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 5699873896825040759, guid: c3ce8b8bd4727824c98c24dd0411c3a7,
+        type: 3}
     - target: {fileID: 749330305, guid: 073947f950d4f2fd599365c522c0559e, type: 3}
       propertyPath: m_LocalPosition.z
       value: 306
@@ -709,7 +715,6 @@ GameObject:
   - component: {fileID: 729243868}
   - component: {fileID: 729243867}
   - component: {fileID: 729243866}
-  - component: {fileID: 729243869}
   m_Layer: 0
   m_Name: Scene Camera
   m_TagString: MainCamera
@@ -781,27 +786,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &729243869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729243865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2425f03342d6ebbe9a92b014053fdd5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: {fileID: 0}
-  spawns:
-  - {fileID: 1308820569}
-  - {fileID: 458739063}
-  - {fileID: 1826699463}
-  - {fileID: 925436067}
-  - {fileID: 1539770955}
-  - {fileID: 1766752047}
-  mobs: []
 --- !u!1 &815325318
 GameObject:
   m_ObjectHideFlags: 0

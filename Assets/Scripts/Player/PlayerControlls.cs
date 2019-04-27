@@ -31,14 +31,14 @@ public class PlayerControlls : NetworkBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.U))
             flagCount = 0;
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.I))
             flagCount = 1;
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.O))
             flagCount = 2;
         
-        flag.transform.position = spawns[flagCount].transform.position;
+        //flag.transform.position = spawns[flagCount].transform.position;
     }
 
 

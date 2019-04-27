@@ -20,7 +20,7 @@ public class PlayerSetup : NetworkBehaviour
         }
         else
         {
-            _sceneCamera = GameObject.Find("SceneCamera").GetComponent<Camera>();
+            _sceneCamera = GameObject.Find("Scene Camera").GetComponent<Camera>();
             if (_sceneCamera != null)
                 _sceneCamera.gameObject.SetActive(false);
            
