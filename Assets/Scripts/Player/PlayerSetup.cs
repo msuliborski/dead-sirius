@@ -15,6 +15,7 @@ public class PlayerSetup : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _manager = GetComponent<PlayerManager>();
         if (!isLocalPlayer)
         {
             DisableComponents();
@@ -28,7 +29,7 @@ public class PlayerSetup : NetworkBehaviour
            
             GameManager.LocalPlayer = GetComponent<PlayerManager>();
 
-            _manager = GetComponent<PlayerManager>();
+           
             _manager.Canvas = GameObject.Find("Canvas");
 
             for (int id = 0; id < _manager.Canvas.transform.childCount; id++)
