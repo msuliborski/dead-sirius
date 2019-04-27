@@ -33,7 +33,7 @@ public class PlayerManager : NetworkBehaviour
         }
         else
         {
-            Base = GameObject.Find("Base2");
+            
             PlayerId = 2;
         }
         
