@@ -66,13 +66,14 @@ public class MobBehaviourNodes : MonoBehaviour
         if (other.tag == "Mob")
         {
             MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            if (mb == null) mb = other.transform.GetComponentInParent<MobBehaviourNodes>();
             if(mb.ownerId != ownerId)
             {
                 PreviousState = CurrentState;
                 CurrentState = EnemyState.Fighting;
                 Enemy = mb;
             }
-            else
+            else if (other.transform.name == "back")
             {
                 PreviousState = CurrentState;
                 CurrentState = EnemyState.Waiting;
