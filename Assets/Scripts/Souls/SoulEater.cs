@@ -18,6 +18,7 @@ public class SoulEater : MonoBehaviour
             if (mb.ownerId == 1)
                 mb.Owner.GetComponent<PlayerControllsNodes>().health += 450;
             else mb.Owner.GetComponent<AINode>().health += 450;
+            GameObject.Find("SoulGenerator").GetComponent<SoulGenerator>().ActiveSouls--;
 
             Destroy(other.gameObject);
 

@@ -26,11 +26,13 @@ public class PlayerControllsNodes : MonoBehaviour
     public List<Transform> nodes3;
 //    public bool Blocked = false;
     public bool[] isBlocked = new bool[3];
+    
 
     
     
    public void Start()
-   {    
+   {
+       
         _manager = GetComponent<PlayerManager>();
        // _flag.transform.position = new Vector3(spawns[0].position.x, , spawns[0].position.z);
         

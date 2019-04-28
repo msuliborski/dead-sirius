@@ -30,7 +30,12 @@ public class MobBehaviourNodes : MonoBehaviour
     public GameObject towerAttackEffect;
     public int TypeIndex;
     private Animator _animator;
+
     public bool HasArrived;
+
+    private AudioSource source;
+    private bool canPlay = true;
+
 
 
     public enum EnemyState { Fighting, Moving, Rotating, Waiting };
@@ -43,8 +48,12 @@ public class MobBehaviourNodes : MonoBehaviour
     }
     void Start()
     {
+
+        source = GetComponent<AudioSource>();
+
         transform.tag = "Mob";
         transform.GetChild(2).tag = "MobTag";
+
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         if (ownerId == 1)
@@ -174,6 +183,13 @@ public class MobBehaviourNodes : MonoBehaviour
 
             case EnemyState.Fighting:
 
+                if (canPlay)
+                {
+                    source.PlayOneShot(source.clip);
+                    canPlay = false;
+                    StartCoroutine(playAgain());
+                }
+
                /*if (PreviousState == CurrentState)
                 {
                     switch (ownerId)
@@ -268,6 +284,12 @@ public class MobBehaviourNodes : MonoBehaviour
             
 
         }*/
+
+        IEnumerator playAgain()
+        {
+            yield return new WaitForSeconds(attackSpeed);
+            canPlay = true;
+        }
 
 //        private void OnTriggerStay(Collider col) {
 //            
