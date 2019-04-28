@@ -130,6 +130,21 @@ public class MobBehaviourNodes : MonoBehaviour
                         //GameObject tae = Instantiate(towerAttackEffect);
                         //tae.transform.position = transform.position;
                         Destroy(gameObject);
+                        switch (ownerId)
+                        {
+                            case 1:
+                                GameObject AI = GameObject.Find("EnemyNode");
+                                AI.GetComponent<AINode>().health -= 300;
+
+                                break;
+
+                            case 2:
+
+                                GameObject player = GameObject.Find("PlayerNode");
+                                player.GetComponent<PlayerControllsNodes>().health -= 300;
+
+                                break;
+                        }
                         //Destroy(tae, 2f);
 
                     }
@@ -186,7 +201,8 @@ public class MobBehaviourNodes : MonoBehaviour
         public IEnumerator KillEnemy()
         {
             //Enemy.gameObject.SetActive(false);
-            Enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
+            Enemy.transform.GetChild(0).gameObject.SetActive(false);
+            Enemy.transform.GetChild(1).gameObject.SetActive(false);
             Enemy.GetComponent<Rigidbody>().AddForce(Vector3.up * 100000);
             if (ownerId == 1)
             {
