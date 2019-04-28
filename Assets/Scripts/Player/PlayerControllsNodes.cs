@@ -49,7 +49,7 @@ public class PlayerControllsNodes : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.O))
             flagCount = 2;
         
-        flag.transform.position = spawns[flagCount].transform.position;
+        flag.transform.position = new Vector3(spawns[flagCount].transform.position.x, 0.5f, spawns[flagCount].transform.position.z);
         
         
     }

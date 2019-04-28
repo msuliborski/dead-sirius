@@ -14,17 +14,20 @@ public class MobBehaviourNodes : MonoBehaviour
     private const string ENEMY_ID_PREFIX = "Enemy ";
     public List<Transform> Nodes;
     public int nodeIndex = 0;
+    public Quaternion targetRot;
     public int health;
     public int healthCost;
     public int healthReward;
     public int damage;
     public float attackSpeed;
     public float movingSpeed;
+    public float rotatingSpeed;
     public float spawnTime;
     public int LaneIndex;
     public int ownerId;
     private bool isAttacking = false;
     public MobBehaviour FightEnemy;
+    public GameObject towerAttackEffect;
 
 
     public enum EnemyState { Fighting, Moving, Rotating };
@@ -46,6 +49,8 @@ public class MobBehaviourNodes : MonoBehaviour
         }
 
 
+        Vector3 dir = (Nodes[0].position - transform.position).normalized;
+        transform.rotation = Quaternion.LookRotation(dir);
 
     }
 
@@ -64,16 +69,32 @@ public class MobBehaviourNodes : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, Nodes[nodeIndex].position, movingSpeed);
                 if (transform.position == Nodes[nodeIndex].position)
                 {
-                    if (nodeIndex < Nodes.Count - 1) nodeIndex++;
-                    else Destroy(gameObject);
+                    if (nodeIndex < Nodes.Count - 1)
+                    {
+                        Vector3 dir = (Nodes[nodeIndex + 1].position - transform.position).normalized;
+                        targetRot = Quaternion.LookRotation(dir);
+                        CurrentState = EnemyState.Rotating;
+                    }
+                    else
+                    {
+                        
+                        //GameObject tae = Instantiate(towerAttackEffect);
+                        //tae.transform.position = transform.position;
+                        Destroy(gameObject);
+                        //Destroy(tae, 2f);
+
+                    }
                 }
                 break;
 
             case EnemyState.Rotating:
-
-                //Quaternion destinationRotation = Vector3.Angle(transform.position, Nodes[nodeIndex + 1].position);
-                //transform.rotation = Quaternion.RotateTowards(transform.rotation, destinationRotation, 80f * Time.deltaTime);
-
+                
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotatingSpeed * Time.deltaTime);
+                if (Quaternion.Angle(transform.rotation, targetRot) <= 0.2f)
+                {
+                    CurrentState = EnemyState.Moving;
+                    nodeIndex++;
+                }
                 break;
 
             case EnemyState.Fighting:

@@ -18,6 +18,9 @@ public class AI : MonoBehaviour
     public List<Transform> spawns;
     public List<GameObject> mobs;
     private GameObject _enemyBase;
+    public List<Transform> nodes1;
+    public List<Transform> nodes2;
+    public List<Transform> nodes3;
 
     private int chosenLane;
     private int chosenKind;
