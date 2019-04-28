@@ -44,7 +44,12 @@ public class MobBehaviourNodes : MonoBehaviour
     }
     void Start()
     {
+
         source = GetComponent<AudioSource>();
+
+        transform.tag = "Mob";
+        transform.GetChild(2).tag = "MobTag";
+
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         if (ownerId == 1)
@@ -81,7 +86,7 @@ public class MobBehaviourNodes : MonoBehaviour
         }
         else if (other.CompareTag("MobTag"))
         {
-            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
             if (mb.ownerId == ownerId) {
                 _animator.SetBool("waiting", true);
                 PreviousState = CurrentState;
@@ -92,8 +97,9 @@ public class MobBehaviourNodes : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("MobTag"))
-        { 
+        if (other.tag == "MobTag")
+        {
+            GameObject g = new GameObject();
             _animator.SetBool("waiting", false);
             MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
             if (mb.ownerId == ownerId)
@@ -114,6 +120,8 @@ public class MobBehaviourNodes : MonoBehaviour
     void Update()
     {
 
+        
+
 
         //Debug.Log(CurrentState);
         switch (CurrentState)
@@ -132,10 +140,9 @@ public class MobBehaviourNodes : MonoBehaviour
                     }
                     else
                     {
-                        
+
                         //GameObject tae = Instantiate(towerAttackEffect);
                         //tae.transform.position = transform.position;
-                        Destroy(gameObject);
                         switch (ownerId)
                         {
                             case 1:
@@ -151,6 +158,8 @@ public class MobBehaviourNodes : MonoBehaviour
 
                                 break;
                         }
+                        Destroy(gameObject);
+
                         //Destroy(tae, 2f);
 
                     }
@@ -176,6 +185,28 @@ public class MobBehaviourNodes : MonoBehaviour
                     canPlay = false;
                     StartCoroutine(playAgain());
                 }
+
+               /*if (PreviousState == CurrentState)
+                {
+                    switch (ownerId)
+                    {
+                        case 1:
+                            GameObject AI = GameObject.Find("EnemyNode");
+                            AI.GetComponent<AINode>().health -= 300;
+
+                            break;
+
+                        case 2:
+
+                            GameObject player = GameObject.Find("PlayerNode");
+                            player.GetComponent<PlayerControllsNodes>().health -= 300;
+
+                            break;
+                    }
+                    Destroy(gameObject);
+                }*/
+
+
                 _animator.SetBool("fighting", true);
                 _animator.SetBool("waiting", false);
                 Enemy.health -= Mathf.RoundToInt(damage * Time.deltaTime);
@@ -183,8 +214,10 @@ public class MobBehaviourNodes : MonoBehaviour
                 {
 
                     StartCoroutine(KillEnemy());
+                    Debug.Log("aaaaa");
                     CurrentState = PreviousState;
                 }
+                
                 break;
         }
 
@@ -215,7 +248,7 @@ public class MobBehaviourNodes : MonoBehaviour
             //Enemy.gameObject.SetActive(false);
             Enemy.transform.GetChild(0).gameObject.SetActive(false);
             Enemy.transform.GetChild(1).gameObject.SetActive(false);
-            Enemy.GetComponent<Rigidbody>().AddForce(Vector3.up * 100000);
+            Enemy.GetComponent<Rigidbody>().velocity = new Vector3(0f, 1000000f, 0f);
             if (ownerId == 1)
             {
                 Owner.GetComponent<PlayerControllsNodes>().health += Enemy.healthReward;
@@ -225,7 +258,7 @@ public class MobBehaviourNodes : MonoBehaviour
                 Owner.GetComponent<AINode>().health += Enemy.healthReward;
             }
             yield return new WaitForSeconds(2f);
-
+    
             Destroy(Enemy.gameObject);
            
 

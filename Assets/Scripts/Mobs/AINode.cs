@@ -133,7 +133,7 @@ public class AINode : MonoBehaviour
     public void spawnMob(int ID, int lane) {
         
         
-        if (canSpawn)// && !Blocked)
+        if (canSpawn && !isBlocked[lane])
         {
             GameObject mob;
             
