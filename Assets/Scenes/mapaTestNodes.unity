@@ -5762,7 +5762,7 @@ PrefabInstance:
     - target: {fileID: 4231751869504729225, guid: 1d6635ecabb186843a50b6d23ec57ef8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4231751869504729222, guid: 1d6635ecabb186843a50b6d23ec57ef8,
         type: 3}
@@ -5821,9 +5821,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
         type: 3}
+      propertyPath: nodes1.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
+        type: 3}
+      propertyPath: nodes2.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
+        type: 3}
+      propertyPath: nodes3.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
+        type: 3}
       propertyPath: spawns.Array.data[0]
       value: 
-      objectReference: {fileID: 925436067}
+      objectReference: {fileID: 1766752047}
     - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
         type: 3}
       propertyPath: spawns.Array.data[1]
@@ -5833,7 +5848,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spawns.Array.data[2]
       value: 
-      objectReference: {fileID: 1766752047}
+      objectReference: {fileID: 925436067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d6635ecabb186843a50b6d23ec57ef8, type: 3}
 --- !u!1001 &745052929
