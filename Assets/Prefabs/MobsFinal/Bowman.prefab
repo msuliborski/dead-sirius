@@ -116,7 +116,7 @@ MonoBehaviour:
   targetRot: {x: 0, y: 0, z: 0, w: 0}
   health: 200
   healthCost: 100
-  healthReward: 30
+  healthReward: 10
   damage: 75
   attackSpeed: 2
   movingSpeed: 10
@@ -128,6 +128,7 @@ MonoBehaviour:
   towerAttackEffect: {fileID: 1877830511, guid: 09043cdb5ba4ab84eb6af63f091a3b2a,
     type: 3}
   TypeIndex: 0
+  HasArrived: 0
   CurrentState: 1
   PreviousState: 0
   Enemy: {fileID: 0}

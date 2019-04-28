@@ -12,6 +12,7 @@ public class SoulGenerator : MonoBehaviour
     List<Transform> SoulSpawns = new List<Transform>();
     private Transform spawnPoint;
     bool processingCouroutine = false;
+    bool spawn = true;
     
     // Start is called before the first frame update
     void Start()
@@ -33,23 +34,26 @@ public class SoulGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!processingCouroutine && ActiveSouls < 2)
+        if (spawn && ActiveSouls < 2)
         {
+           
+            delay = Random.Range(lowerRange, upperRange);
+            
+            int randIndex = Random.Range(0, SoulSpawns.Count - 1);
+            spawnPoint = SoulSpawns[randIndex];
+            GameObject tyChuju = Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
+            tyChuju.transform.tag = "Soul";
+
+            ActiveSouls++;
+            spawn = false;
             StartCoroutine(SpawnSoul());
         }
     }
 
     private IEnumerator SpawnSoul()
     {
-        processingCouroutine = true;
-        delay = Random.Range(lowerRange, upperRange);
-        yield return new WaitForSeconds(delay);
-        int randIndex = Random.Range(0, SoulSpawns.Count - 1);
-        spawnPoint = SoulSpawns[randIndex];
-        GameObject tyChuju = Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
-        tyChuju.transform.tag = "Soul";
 
-        ActiveSouls++;
-        if (ActiveSouls < 2) StartCoroutine(SpawnSoul());
+        yield return new WaitForSeconds(delay);
+        spawn = true;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 using UnityEngine.Networking;
 
@@ -27,12 +28,13 @@ public class PlayerControllsNodes : MonoBehaviour
 //    public bool Blocked = false;
     public bool[] isBlocked = new bool[3];
     private AudioSource source;
-    
+    private AINode enemy;
 
     
     
    public void Start()
    {
+        enemy = GameObject.Find("EnemyNode").GetComponent<AINode>();
        source = GetComponent<AudioSource>();
         _manager = GetComponent<PlayerManager>();
        // _flag.transform.position = new Vector3(spawns[0].position.x, , spawns[0].position.z);
@@ -45,6 +47,9 @@ public class PlayerControllsNodes : MonoBehaviour
 
     void Update()
     {
+        if (health <= 0 || enemy.health <= 0) SceneManager.LoadScene(0);
+
+
         queueCount = queue.Count();
 
         if (Input.GetKeyDown(KeyCode.Alpha1)){

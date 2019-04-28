@@ -8,19 +8,25 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: 3c91cd2fd2c3c35d6b12fc6515e4fcdf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LobbyTests.unity
     guid: 2dec1afcb80ac09ebaab0112b8288879
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/tedeTestunio.unity
     guid: d5553eadf9fc02e4cb461ab9b15cd3b4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/tedeTestunioMichal.unity
     guid: 4070dd3eab1948a41887efd96be769f0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/mapaTest.unity
     guid: 4d902c2d2f39d7507b19a879ccaf74aa
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9d51e5f41353c814c98fdbd6f9088f63
+  - enabled: 1
+    path: Assets/Scenes/mapaTestNodes.unity
+    guid: a8b021f74b20ed64c935b4beb077ea00
   m_configObjects: {}

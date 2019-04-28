@@ -50,18 +50,18 @@ public class HexMapCamera : MonoBehaviour
             float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
             if (zoomDelta != 0f) AdjustZoom(zoomDelta);
 
-            //if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - _scrollBorderThickness) zDelta++;
-            //if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.mousePosition.y <= _scrollBorderThickness) zDelta--;
-            //if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - _scrollBorderThickness) xDelta++;
-            //if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - _scrollBorderThickness) xDelta++;
-            //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || Input.mousePosition.x <= _scrollBorderThickness) xDelta--;
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - _scrollBorderThickness) zDelta++;
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.mousePosition.y <= _scrollBorderThickness) zDelta--;
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - _scrollBorderThickness) xDelta++;
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - _scrollBorderThickness) xDelta++;
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || Input.mousePosition.x <= _scrollBorderThickness) xDelta--;
             if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.Comma)) rotationDelta++;
             if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Period)) rotationDelta--;
 
-            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) zDelta++;
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) zDelta--;
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) xDelta++;
-            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) xDelta--;
+            //if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) zDelta++;
+            //if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) zDelta--;
+            //if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) xDelta++;
+            //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) xDelta--;
 
             if (xDelta != 0f || zDelta != 0f) AdjustPositionMouse(xDelta, zDelta);
             if (rotationDelta != 0f) AdjustRotationKeyboard(rotationDelta);
