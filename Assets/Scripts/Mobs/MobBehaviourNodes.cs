@@ -30,6 +30,8 @@ public class MobBehaviourNodes : MonoBehaviour
     public GameObject towerAttackEffect;
     public int TypeIndex;
     private Animator _animator;
+    private AudioSource source;
+    private bool canPlay = true;
 
 
     public enum EnemyState { Fighting, Moving, Rotating, Waiting };
@@ -42,6 +44,7 @@ public class MobBehaviourNodes : MonoBehaviour
     }
     void Start()
     {
+        source = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         if (ownerId == 1)
@@ -167,6 +170,12 @@ public class MobBehaviourNodes : MonoBehaviour
 
             case EnemyState.Fighting:
 
+                if (canPlay)
+                {
+                    source.PlayOneShot(source.clip);
+                    canPlay = false;
+                    StartCoroutine(playAgain());
+                }
                 _animator.SetBool("fighting", true);
                 _animator.SetBool("waiting", false);
                 Enemy.health -= Mathf.RoundToInt(damage * Time.deltaTime);
@@ -220,6 +229,12 @@ public class MobBehaviourNodes : MonoBehaviour
             Destroy(Enemy.gameObject);
            
 
+        }
+
+        IEnumerator playAgain()
+        {
+            yield return new WaitForSeconds(attackSpeed);
+            canPlay = true;
         }
 
 //        private void OnTriggerStay(Collider col) {
