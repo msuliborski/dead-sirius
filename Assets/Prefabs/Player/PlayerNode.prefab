@@ -68,9 +68,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flag: {fileID: 6359388551918349145}
   maxQueue: 5
-  Health: 0
+  health: 0
+  maxHealth: 0
+  flagCount: 0
   spawns: []
-  mobs: []
+  mobs:
+  - {fileID: 1858831248, guid: 9263a4dccfdddf2eb90905f9c8b415b7, type: 3}
+  - {fileID: 49280313, guid: d54a3dd2610febccdb2f0e99f7a5222f, type: 3}
+  - {fileID: 1205095549, guid: ff834719c07224681985930991d18981, type: 3}
+  canSpawn: 0
   _flag: {fileID: 6359388551918349145}
   nodes1: []
   nodes2: []

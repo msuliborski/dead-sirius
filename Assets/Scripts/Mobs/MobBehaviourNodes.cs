@@ -29,6 +29,7 @@ public class MobBehaviourNodes : MonoBehaviour
     public MobBehaviour FightEnemy;
     public GameObject towerAttackEffect;
     public int TypeIndex;
+    private Animator _animator;
 
 
     public enum EnemyState { Fighting, Moving, Rotating, Waiting };
@@ -41,6 +42,7 @@ public class MobBehaviourNodes : MonoBehaviour
     }
     void Start()
     {
+        _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         if (ownerId == 1)
         {
@@ -76,6 +78,7 @@ public class MobBehaviourNodes : MonoBehaviour
         }
         else if (other.CompareTag("MobTag"))
         {
+            _animator.SetBool("waiting", true);
             PreviousState = CurrentState;
             CurrentState = EnemyState.Waiting;
         }
@@ -85,6 +88,7 @@ public class MobBehaviourNodes : MonoBehaviour
     {
         if (other.CompareTag("MobTag"))
         { 
+            _animator.SetBool("waiting", false);
             MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
             if (mb.ownerId == ownerId)
             {
@@ -109,6 +113,8 @@ public class MobBehaviourNodes : MonoBehaviour
         switch (CurrentState)
         {
             case EnemyState.Moving:
+                _animator.SetBool("fighting", false);
+                _animator.SetBool("waiting", false);
                 transform.position = Vector3.MoveTowards(transform.position, Nodes[nodeIndex].position, movingSpeed);
                 if (transform.position == Nodes[nodeIndex].position)
                 {
@@ -131,7 +137,8 @@ public class MobBehaviourNodes : MonoBehaviour
                 break;
 
             case EnemyState.Rotating:
-                
+                _animator.SetBool("fighting", false);
+                _animator.SetBool("waiting", false);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotatingSpeed * Time.deltaTime);
                 if (Quaternion.Angle(transform.rotation, targetRot) <= 0.2f)
                 {
@@ -142,6 +149,8 @@ public class MobBehaviourNodes : MonoBehaviour
 
             case EnemyState.Fighting:
 
+                _animator.SetBool("fighting", true);
+                _animator.SetBool("waiting", false);
                 Enemy.health -= Mathf.RoundToInt(damage * Time.deltaTime);
                 if (Enemy.health < 0)
                 {
