@@ -78,9 +78,12 @@ public class MobBehaviourNodes : MonoBehaviour
         }
         else if (other.CompareTag("MobTag"))
         {
-            _animator.SetBool("waiting", true);
-            PreviousState = CurrentState;
-            CurrentState = EnemyState.Waiting;
+            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            if (mb.ownerId == ownerId) {
+                _animator.SetBool("waiting", true);
+                PreviousState = CurrentState;
+                CurrentState = EnemyState.Waiting;
+            }
         }
     }
 
