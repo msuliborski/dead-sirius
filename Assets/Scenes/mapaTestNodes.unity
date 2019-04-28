@@ -10254,6 +10254,16 @@ PrefabInstance:
       propertyPath: nodes3.Array.data[3]
       value: 
       objectReference: {fileID: 1424781190}
+    - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
+        type: 3}
+      propertyPath: maxHealth
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656554612947627066, guid: 1d6635ecabb186843a50b6d23ec57ef8,
+        type: 3}
+      propertyPath: health
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d6635ecabb186843a50b6d23ec57ef8, type: 3}
 --- !u!1001 &738286027
@@ -13481,7 +13491,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038408190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -26066,6 +26076,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5345496185421628408, guid: bde581f33b702ef499f824af86f4b004,
         type: 3}
+    - target: {fileID: 7332746492028065947, guid: cf3f943ca5063d44b9482461f4ea39ac,
+        type: 3}
+      propertyPath: maxHealth
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332746492028065947, guid: cf3f943ca5063d44b9482461f4ea39ac,
+        type: 3}
+      propertyPath: health
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 5020202882695729545, guid: cf3f943ca5063d44b9482461f4ea39ac,
         type: 3}
       propertyPath: m_LocalPosition.x

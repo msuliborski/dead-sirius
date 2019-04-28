@@ -5,13 +5,15 @@ using UnityEngine.AI;
 
 public class AINode : MonoBehaviour
 {
-    public float Health;
+    public float health;
+    public float maxHealth;
     private int maxQueue = 5;
     public static int[][] mobsKinds = new int[3][];
     private float[] laneChances = new float[3];
     private float[] kindChances = new float[3];
     private float _randomLane = 0;
     private float _randomMob = 0;
+    private float _random = 0;
     private bool canSpawn = true;
     private List<int> queue = new List<int>();
     private List<int> lanes = new List<int>();
@@ -38,7 +40,7 @@ public class AINode : MonoBehaviour
     
     void Update()
     {
-        
+        updateModInfo();
         for (int i = 0; i < 3; i++)
         {
             laneChances[i] = 1;
@@ -102,30 +104,29 @@ public class AINode : MonoBehaviour
         float M2Chance = kindChances[2] / sum;
 
         if (_randomMob < M0Chance)
-        {
             chosenKind = 2;
-        } else if (_randomMob >= M2Chance && _randomMob < M0Chance+M1Chance)
-        {
+        else if (_randomMob >= M2Chance && _randomMob < M0Chance+M1Chance)
             chosenKind = 1;
-        }
-        else
-        {
+        else 
             chosenKind = 0;
-        }
         
-        spawnMob(chosenKind, chosenLane);
-       
+        _random = Random.Range(0, 1);
+        if (_random <= health / maxHealth) 
+            spawnMob(chosenKind, chosenLane);
+            
     }
 
     private void updateModInfo() {
         GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
+        Debug.Log("CHUJUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + mobs.Length);
         
         mobsKinds = new int[3][];
         for (int i = 0; i < 3; i++)
             mobsKinds[i] = new int[3];
         
         foreach (var mob in mobs) {
-            mobsKinds[mob.GetComponent<MobBehaviourNodes>().LaneIndex][mob.GetComponent<MobBehaviourNodes>().TypeIndex]++;
+            if (mob.GetComponent<MobBehaviourNodes>().ownerId != 2)
+                mobsKinds[mob.GetComponent<MobBehaviourNodes>().LaneIndex][mob.GetComponent<MobBehaviourNodes>().TypeIndex]++;
         }
 
             
