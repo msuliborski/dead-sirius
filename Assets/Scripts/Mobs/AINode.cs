@@ -23,8 +23,10 @@ public class AINode : MonoBehaviour
     public List<Transform> nodes1;
     public List<Transform> nodes2;
     public List<Transform> nodes3;
+//    public bool Blocked = false;
 
-    private int chosenLane;
+
+    public int chosenLane;
     private int chosenKind;
 
     void Start()
@@ -52,7 +54,7 @@ public class AINode : MonoBehaviour
         {
             for (int j = 0; j < 3; j++)
             {
-                laneChances[i] += mobsKinds[i][j] * 20;
+                laneChances[i] += mobsKinds[i][j] * 50;
             }
             Debug.Log(i + "/" + laneChances[i]);
         }
@@ -110,9 +112,7 @@ public class AINode : MonoBehaviour
         else 
             chosenKind = 0;
         
-        _random = Random.Range(0, 1);
-        if (_random <= ((health*1 / maxHealth*1)*1.5f)+0.2) 
-            spawnMob(chosenKind, chosenLane);
+        spawnMob(chosenKind, chosenLane);
             
     }
 
@@ -131,28 +131,12 @@ public class AINode : MonoBehaviour
     
     public void spawnMob(int ID, int lane) {
         
-        Debug.Log("Spawn: ID: " + ID + " lane: " + lane + "chuju");
         
-        if (canSpawn)
+        if (canSpawn)// && !Blocked)
         {
             GameObject mob;
-            if (queue.Count == 0)
-            {
-                mob = Instantiate(mobs[ID], spawns[lane].position, Quaternion.identity);
-            }
-                
-            else
-            {
-                mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-                
-                queue.RemoveAt(0);
-                lanes.RemoveAt(0);
-                if (queue.Count < maxQueue)
-                {
-                    queue.Add(ID);
-                    lanes.Add(lane);
-                }
-            }
+            
+            mob = Instantiate(mobs[ID], spawns[lane].position, Quaternion.identity);
             
             MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             if (lane == 0) enemy.Nodes = nodes1;
@@ -167,14 +151,7 @@ public class AINode : MonoBehaviour
             
             StartCoroutine(cooldown(ID, 5f));
         }
-        else
-        {
-            if (queue.Count < maxQueue)
-            {
-                queue.Add(ID);
-                lanes.Add(lane);
-            }
-        }
+        
     }
 
 
@@ -182,22 +159,5 @@ public class AINode : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canSpawn = true;
-        if (queue.Count != 0)
-        {
-            GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-            MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
-            enemy.baseTarget = _enemyBase.transform;
-            enemy.LaneIndex = lanes[0];
-            health -= enemy.healthCost;
-            if (lanes[0] == 0) enemy.Nodes = nodes1;
-            else if (lanes[0] == 1) enemy.Nodes = nodes2;
-            else enemy.Nodes = nodes3;
-            enemy.PrintNodes();
-            enemy.ownerId = 2;
-            queue.RemoveAt(0);
-            lanes.RemoveAt(0);
-            canSpawn = false;
-            StartCoroutine(cooldown(ID, 5f));
-        }
     }
 }

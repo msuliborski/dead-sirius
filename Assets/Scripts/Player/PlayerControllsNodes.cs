@@ -12,10 +12,10 @@ public class PlayerControllsNodes : MonoBehaviour
     [SerializeField] private int maxQueue = 5;
     public int health;
     public float maxHealth;
-    private int flagCount = 0;
+    public int flagCount = 0;
     public List<Transform> spawns;
     public List<GameObject> mobs;
-    private bool canSpawn;
+    public bool canSpawn;
     private PlayerManager _manager;
     [SerializeField] private GameObject _flag;
     private List<int> queue = new List<int>();
@@ -23,6 +23,7 @@ public class PlayerControllsNodes : MonoBehaviour
     public List<Transform> nodes1;
     public List<Transform> nodes2;
     public List<Transform> nodes3;
+//    public bool Blocked = false;
 
     
     
@@ -34,6 +35,7 @@ public class PlayerControllsNodes : MonoBehaviour
 
         _flag.transform.position = spawns[0].position;
         canSpawn = true;
+        
 
    }
 
@@ -43,12 +45,19 @@ public class PlayerControllsNodes : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.U)){
             flagCount = 0;
-        else if (Input.GetKeyDown(KeyCode.I))
+         //   Blocked = false;
+        }
+            
+        else if (Input.GetKeyDown(KeyCode.I)){
             flagCount = 1;
-        else if (Input.GetKeyDown(KeyCode.O))
+          //  Blocked = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.O)){
             flagCount = 2;
+          //  Blocked = false;
+        }
         
         flag.transform.position = new Vector3(spawns[flagCount].transform.position.x, 0.5f, spawns[flagCount].transform.position.z);
         
@@ -61,7 +70,7 @@ public class PlayerControllsNodes : MonoBehaviour
 
     public void spawnMob(int ID) {
         
-        if (canSpawn)
+        if (canSpawn)// && !Blocked)
         {
 
             GameObject mob;
@@ -115,22 +124,27 @@ public class PlayerControllsNodes : MonoBehaviour
         canSpawn = true;
         if (queue.Count != 0)
         {
-            GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-            //AINode.mobsKinds[lanes[0]][queue[0]]++;
-            MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
-            if (lanes[0] == 0) enemy.Nodes = nodes1;
-            else if (lanes[0] == 1) enemy.Nodes = nodes2;
-            else enemy.Nodes = nodes3;
-            enemy.ownerId = 1;
-            enemy.LaneIndex = lanes[0];
-            enemy.TypeIndex = ID;
-            health -= enemy.healthCost;
-            queue.RemoveAt(0);
-            lanes.RemoveAt(0);
-            canSpawn = false;
+           // if (!Blocked) {
+                GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                //AINode.mobsKinds[lanes[0]][queue[0]]++;
+                MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
+                if (lanes[0] == 0) enemy.Nodes = nodes1;
+                else if (lanes[0] == 1) enemy.Nodes = nodes2;
+                else enemy.Nodes = nodes3;
+                enemy.ownerId = 1;
+                enemy.LaneIndex = lanes[0];
+                enemy.TypeIndex = ID;
+                health -= enemy.healthCost;
+                queue.RemoveAt(0);
+                lanes.RemoveAt(0);
+                canSpawn = false;
+         //   }
+
             StartCoroutine(cooldown(ID, 2f));
         }
     }
+    
+    
 
 
 

@@ -74,7 +74,7 @@ public class MobBehaviourNodes : MonoBehaviour
             }
             
         }
-        else if (other.tag == "MobTag")
+        else if (other.CompareTag("MobTag"))
         {
             PreviousState = CurrentState;
             CurrentState = EnemyState.Waiting;
@@ -83,7 +83,7 @@ public class MobBehaviourNodes : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "MobTag")
+        if (other.CompareTag("MobTag"))
         { 
             MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
             if (mb.ownerId == ownerId)
@@ -92,6 +92,9 @@ public class MobBehaviourNodes : MonoBehaviour
             }
             
         }
+//        else if (other.CompareTag("Spawn") && ownerId == 1 && Owner.GetComponent<PlayerControllsNodes>().flagCount == LaneIndex) {
+//            Owner.GetComponent<PlayerControllsNodes>().Blocked = false;
+//        }
 
     }
 
@@ -191,7 +194,14 @@ public class MobBehaviourNodes : MonoBehaviour
 
         }
 
-
-
-    
+//        private void OnTriggerStay(Collider col) {
+//            
+//            if (col.CompareTag("Spawn") && ownerId == 1 && Owner.GetComponent<PlayerControllsNodes>().flagCount == LaneIndex) {
+//                Owner.GetComponent<PlayerControllsNodes>().Blocked = true;
+//                Debug.Log("HAHAHAHHAAH");
+//            } 
+//            else if (col.CompareTag("SpawnEnemy") && ownerId == 2 && Owner.GetComponent<AINode>().chosenLane == LaneIndex) {
+//                Owner.GetComponent<PlayerControllsNodes>().Blocked = true;
+//            }
+//        }
 }
