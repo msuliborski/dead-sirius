@@ -10,7 +10,8 @@ public class PlayerControllsNodes : MonoBehaviour
     
     [SerializeField] private GameObject flag;
     [SerializeField] private int maxQueue = 5;
-    public int Health;
+    public int health;
+    public float maxHealth;
     private int flagCount = 0;
     public List<Transform> spawns;
     public List<GameObject> mobs;
@@ -67,14 +68,14 @@ public class PlayerControllsNodes : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
-                AINode.mobsKinds[flagCount][ID]++;
+                //AINode.mobsKinds[flagCount][ID]++;
 
             }
                 
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-                AINode.mobsKinds[lanes[0]][queue[0]]++;
+                //AINode.mobsKinds[lanes[0]][queue[0]]++;
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 if (queue.Count < maxQueue)
@@ -113,7 +114,7 @@ public class PlayerControllsNodes : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-            AINode.mobsKinds[lanes[0]][queue[0]]++;
+            //AINode.mobsKinds[lanes[0]][queue[0]]++;
             MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             if (lanes[0] == 0) enemy.Nodes = nodes1;
             else if (lanes[0] == 1) enemy.Nodes = nodes2;
