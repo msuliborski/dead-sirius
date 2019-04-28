@@ -67,12 +67,14 @@ public class PlayerControllsNodes : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+                AINode.mobsKinds[flagCount][ID]++;
 
             }
                 
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                AINode.mobsKinds[lanes[0]][queue[0]]++;
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 if (queue.Count < maxQueue)
@@ -87,7 +89,7 @@ public class PlayerControllsNodes : MonoBehaviour
             else if (flagCount == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
             enemy.LaneIndex = flagCount;
-            enemy.ownerId = 1;
+            enemy.TypeIndex = ID;
 
             canSpawn = false;
             StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviourNodes> ().spawnTime));
@@ -111,12 +113,14 @@ public class PlayerControllsNodes : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-
+            AINode.mobsKinds[lanes[0]][queue[0]]++;
             MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             if (lanes[0] == 0) enemy.Nodes = nodes1;
             else if (lanes[0] == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
             enemy.ownerId = 1;
+            enemy.LaneIndex = lanes[0];
+            enemy.TypeIndex = ID;
             queue.RemoveAt(0);
             lanes.RemoveAt(0);
             canSpawn = false;
