@@ -1,5 +1,62 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2333910522170352729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4789029414495045581}
+  - component: {fileID: 3511576843630508714}
+  - component: {fileID: 5545752541358473073}
+  m_Layer: 0
+  m_Name: SoulCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4789029414495045581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333910522170352729}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.112277225, y: -0.1348911, z: -0.07190132}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 5345496185421628402}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3511576843630508714
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333910522170352729}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 244.25035, y: 9.470703, z: 16.029684}
+  m_Center: {x: 3.8697586, y: 4.2353516, z: -1.7855711}
+--- !u!114 &5545752541358473073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333910522170352729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16707a9feac37449a6c8e65f58f4383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5345496185421628408
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +90,7 @@ Transform:
   m_Children:
   - {fileID: 2807653570570538791}
   - {fileID: 6803700437467617049}
+  - {fileID: 4789029414495045581}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55,8 +113,8 @@ MonoBehaviour:
   nodeIndex: 0
   targetRot: {x: 0, y: 0, z: 0, w: 0}
   health: 300
-  healthCost: 0
-  healthReward: 0
+  healthCost: 200
+  healthReward: 50
   damage: 100
   attackSpeed: 2
   movingSpeed: 5
@@ -82,8 +140,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 12.505261}
-  m_Center: {x: 0, y: 0, z: -2.905838}
+  m_Size: {x: 1, y: 1, z: 3.318641}
+  m_Center: {x: 0, y: 0, z: 1.6874729}
 --- !u!54 &4367303760446315586
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,13 +187,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6803700437467617049}
   - component: {fileID: 4362463034192573198}
+  - component: {fileID: 9173137579655591029}
   m_Layer: 9
   m_Name: back
-  m_TagString: Mob
+  m_TagString: MobTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6803700437467617049
 Transform:
   m_ObjectHideFlags: 0
@@ -163,6 +222,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 6.64085}
   m_Center: {x: 0, y: 0, z: -2.820425}
+--- !u!114 &9173137579655591029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962623236887896036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0861952ee490d414ba753dd9b279d400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7712260795492190870
 GameObject:
   m_ObjectHideFlags: 0

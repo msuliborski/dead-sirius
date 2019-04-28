@@ -44,12 +44,12 @@ public class MobBehaviourNodes : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         if (ownerId == 1)
         {
-            Owner = GameObject.Find("Player");
+            Owner = GameObject.Find("PlayerNode");
             baseTarget = GameObject.Find("Base2").transform;
         }
         else
         {
-            Owner = GameObject.Find("Enemy");
+            Owner = GameObject.Find("EnemyNode");
             baseTarget = GameObject.Find("Base1").transform;
 
         }
@@ -72,26 +72,27 @@ public class MobBehaviourNodes : MonoBehaviour
                 CurrentState = EnemyState.Fighting;
                 Enemy = mb;
             }
-            //else if (other.transform.name == "back")
-            else if (Enemy == null)
-            {
-                PreviousState = CurrentState;
-                CurrentState = EnemyState.Waiting;
-            }
+            
+        }
+        else if (other.tag == "MobTag")
+        {
+            PreviousState = CurrentState;
+            CurrentState = EnemyState.Waiting;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Mob")
-        {
-            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+        if (other.tag == "MobTag")
+        { 
+            MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
             if (mb.ownerId == ownerId)
             {
                 CurrentState = PreviousState;
             }
             
         }
+
     }
 
 
@@ -172,10 +173,21 @@ public class MobBehaviourNodes : MonoBehaviour
 
         public IEnumerator KillEnemy()
         {
-            Enemy.gameObject.SetActive(false);
-            Enemy.GetComponent<Rigidbody>().AddForce(Vector3.up * 10000);
-            yield return new WaitForSeconds(0.1f);
-            Destroy(Enemy);
+            //Enemy.gameObject.SetActive(false);
+            Enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
+            Enemy.GetComponent<Rigidbody>().AddForce(Vector3.up * 100000);
+            if (ownerId == 1)
+            {
+                Owner.GetComponent<PlayerControllsNodes>().health += Enemy.healthReward;
+            }
+            else
+            {
+                Owner.GetComponent<AINode>().health += Enemy.healthReward;
+            }
+            yield return new WaitForSeconds(2f);
+
+            Destroy(Enemy.gameObject);
+           
 
         }
 

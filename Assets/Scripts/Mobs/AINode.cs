@@ -166,6 +166,7 @@ public class AINode : MonoBehaviour
             enemy.PrintNodes();
             enemy.LaneIndex = lane;
             enemy.ownerId = 2;
+            health -= enemy.healthCost;
 
             canSpawn = false;
             
@@ -192,6 +193,7 @@ public class AINode : MonoBehaviour
             MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = lanes[0];
+            health -= enemy.healthCost;
             if (lanes[0] == 0) enemy.Nodes = nodes1;
             else if (lanes[0] == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
