@@ -7,15 +7,18 @@ public class Lightning : MonoBehaviour
     [SerializeField] private GameObject thunder;
     public void Smite()
     {
-        if (Input.GetMouseButton(0))
+        
+//        while (!Input.GetMouseButton(0))
+//        {
+//        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo))
-            {
-                Debug.Log("Smited");
-                Instantiate(thunder, hitInfo.transform.position, Quaternion.identity);
-            }
+            Debug.Log("Smited");
+            Instantiate(thunder, hitInfo.transform.position, Quaternion.identity);
         }
+    
     }
 }
