@@ -31,17 +31,18 @@ public class AINode : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             mobsKinds[i] = new int[3];
-            laneChances[i] = 10;
-            kindChances[i] = 10;
+            laneChances[i] = 1;
+            kindChances[i] = 1;
         }
     }
     
     void Update()
     {
+        
         for (int i = 0; i < 3; i++)
         {
-            laneChances[i] = 10;
-            kindChances[i] = 10;
+            laneChances[i] = 1;
+            kindChances[i] = 1;
         }
         
         //////////////Choosing lane////////////////
@@ -49,9 +50,9 @@ public class AINode : MonoBehaviour
         {
             for (int j = 0; j < 3; j++)
             {
-                laneChances[i] += mobsKinds[i][j] * 3;
+                laneChances[i] += mobsKinds[i][j] * 20;
             }
-            //Debug.Log(i + "/" + laneChances[i]);
+            Debug.Log(i + "/" + laneChances[i]);
         }
 
         float sum = 0;
@@ -59,10 +60,10 @@ public class AINode : MonoBehaviour
         {
             sum += laneChances[i];
         }
-        //Debug.Log("Sum "+ sum);
+        Debug.Log("Sum "+ sum);
 
         _randomLane = Random.Range(0f, 1f);
-        //Debug.Log("Random "+ _randomLane);
+        Debug.Log("Random "+ _randomLane);
 
         float L0Chance = laneChances[0] / sum;
         float L1Chance = laneChances[1] / sum;
@@ -70,16 +71,16 @@ public class AINode : MonoBehaviour
 
         if (_randomLane < L0Chance)
         {
-            chosenLane = 2;
+            chosenLane = 0;
         } else if (_randomLane >= L2Chance && _randomLane < L0Chance+L1Chance)
         {
             chosenLane = 1;
         }
         else
         {
-            chosenLane = 0;
+            chosenLane = 2;
         }
-        //Debug.Log(chosenLane);
+        Debug.Log(chosenLane);
         
         /////////////Choosing mob/////////////////
         for (int i = 0; i < 3; i++)
@@ -92,6 +93,7 @@ public class AINode : MonoBehaviour
         {
             sum += kindChances[i];
         }
+
 
         _randomMob = Random.Range(0, 1);
 
@@ -112,11 +114,28 @@ public class AINode : MonoBehaviour
         }
         
         spawnMob(chosenKind, chosenLane);
+       
+    }
+
+    private void updateModInfo() {
+        GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
+        
+        mobsKinds = new int[3][];
+        for (int i = 0; i < 3; i++)
+            mobsKinds[i] = new int[3];
+        
+        foreach (var mob in mobs) {
+            mobsKinds[mob.GetComponent<MobBehaviourNodes>().LaneIndex][mob.GetComponent<MobBehaviourNodes>().TypeIndex]++;
+        }
+
+            
         
 
     }
     
     public void spawnMob(int ID, int lane) {
+        
+        Debug.Log("Spawn: ID: " + ID + " lane: " + lane + "chuju");
         
         if (canSpawn)
         {
@@ -124,7 +143,6 @@ public class AINode : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[lane].position, Quaternion.identity);
-               
             }
                 
             else
