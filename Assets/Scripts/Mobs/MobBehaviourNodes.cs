@@ -30,6 +30,7 @@ public class MobBehaviourNodes : MonoBehaviour
     public GameObject towerAttackEffect;
     public int TypeIndex;
     private Animator _animator;
+    public bool HasArrived;
 
 
     public enum EnemyState { Fighting, Moving, Rotating, Waiting };
@@ -93,7 +94,7 @@ public class MobBehaviourNodes : MonoBehaviour
     {
         if (other.tag == "MobTag")
         {
-            GameObject g = new GameObject();
+            
             _animator.SetBool("waiting", false);
             MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
             if (mb.ownerId == ownerId)
@@ -200,8 +201,39 @@ public class MobBehaviourNodes : MonoBehaviour
                 if (Enemy.health < 0)
                 {
 
-                    StartCoroutine(KillEnemy());
-                    Debug.Log("aaaaa");
+                    Enemy.transform.GetChild(0).gameObject.SetActive(false);
+                    Enemy.transform.GetChild(1).gameObject.SetActive(false);
+                    Enemy.GetComponent<Rigidbody>().velocity = new Vector3(0f, 1000000f, 0f);
+                    if (ownerId == 1)
+                    {
+                        Owner.GetComponent<PlayerControllsNodes>().health += Enemy.healthReward;
+                    }
+                    else
+                    {
+                        Owner.GetComponent<AINode>().health += Enemy.healthReward;
+                    }
+                    Enemy.CurrentState = EnemyState.Waiting;
+                    Destroy(Enemy.gameObject, 2f);
+                    if (HasArrived)
+                    {
+                        switch (ownerId)
+                        {
+                            case 1:
+                                GameObject AI = GameObject.Find("EnemyNode");
+                                AI.GetComponent<AINode>().health -= 300;
+
+                                break;
+
+                            case 2:
+
+                                GameObject player = GameObject.Find("PlayerNode");
+                                player.GetComponent<PlayerControllsNodes>().health -= 300;
+
+                                break;
+                        }
+                        Destroy(gameObject);
+                    }
+                    
                     CurrentState = PreviousState;
                 }
                 
@@ -230,26 +262,12 @@ public class MobBehaviourNodes : MonoBehaviour
             return tMin;
         }
 
-        public IEnumerator KillEnemy()
+        /*public IEnumerator KillEnemy()
         {
             //Enemy.gameObject.SetActive(false);
-            Enemy.transform.GetChild(0).gameObject.SetActive(false);
-            Enemy.transform.GetChild(1).gameObject.SetActive(false);
-            Enemy.GetComponent<Rigidbody>().velocity = new Vector3(0f, 1000000f, 0f);
-            if (ownerId == 1)
-            {
-                Owner.GetComponent<PlayerControllsNodes>().health += Enemy.healthReward;
-            }
-            else
-            {
-                Owner.GetComponent<AINode>().health += Enemy.healthReward;
-            }
-            yield return new WaitForSeconds(2f);
-    
-            Destroy(Enemy.gameObject);
-           
+            
 
-        }
+        }*/
 
 //        private void OnTriggerStay(Collider col) {
 //            

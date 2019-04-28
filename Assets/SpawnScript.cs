@@ -24,12 +24,14 @@ public class SpawnScript : MonoBehaviour
             
             MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
             //Debug.Log("OwnerID: " + mb.ownerId + ", id: " + ownerId);
-            if (mb.ownerId == ownerId) {
-                
-                
-                switch (ownerId) {
+            if (mb.ownerId == ownerId)
+            {
+
+
+                switch (ownerId)
+                {
                     case 1:
-                        
+
                         Owner.GetComponent<PlayerControllsNodes>().isBlocked[selfId] = true;
 
                         break;
@@ -37,9 +39,10 @@ public class SpawnScript : MonoBehaviour
                         Owner.GetComponent<AINode>().isBlocked[selfId] = true;
                         break;
                 }
-                
-                
+
+
             }
+            else mb.HasArrived = true;
         }
         
 

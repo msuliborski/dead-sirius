@@ -32,7 +32,8 @@ public class PlayerControllsNodes : MonoBehaviour
    public void Start()
    {    
         _manager = GetComponent<PlayerManager>();
-        _flag.transform.position = spawns[0].position;
+       // _flag.transform.position = new Vector3(spawns[0].position.x, , spawns[0].position.z);
+        
         canSpawn = true;
    }
 
@@ -43,21 +44,21 @@ public class PlayerControllsNodes : MonoBehaviour
     {
         queueCount = queue.Count();
 
-        if (Input.GetKeyDown(KeyCode.U)){
+        if (Input.GetKeyDown(KeyCode.Alpha1)){
             flagCount = 0;
          //   Blocked = false;
         }
             
-        else if (Input.GetKeyDown(KeyCode.I)){
+        else if (Input.GetKeyDown(KeyCode.Alpha2)){
             flagCount = 1;
           //  Blocked = false;
         }
-        else if (Input.GetKeyDown(KeyCode.O)){
+        else if (Input.GetKeyDown(KeyCode.Alpha3)){
             flagCount = 2;
           //  Blocked = false;
         }
         
-        flag.transform.position = new Vector3(spawns[flagCount].transform.position.x, 0.5f, spawns[flagCount].transform.position.z);
+        _flag.transform.position = new Vector3(spawns[flagCount].transform.position.x, 2f, spawns[flagCount].transform.position.z);
         
         
     }
