@@ -28,10 +28,13 @@ public class MobBehaviourNodes : MonoBehaviour
     private bool isAttacking = false;
     public MobBehaviour FightEnemy;
     public GameObject towerAttackEffect;
+    public int TypeIndex;
 
 
-    public enum EnemyState { Fighting, Moving, Rotating };
+    public enum EnemyState { Fighting, Moving, Rotating, Waiting };
     public EnemyState CurrentState = EnemyState.Moving;
+    public EnemyState PreviousState;
+    public MobBehaviourNodes Enemy;
     public void PrintNodes()
     {
         foreach (var node in Nodes) Debug.Log(node);
@@ -57,6 +60,38 @@ public class MobBehaviourNodes : MonoBehaviour
 
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Mob")
+        {
+            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            if(mb.ownerId != ownerId)
+            {
+                PreviousState = CurrentState;
+                CurrentState = EnemyState.Fighting;
+                Enemy = mb;
+            }
+            else
+            {
+                PreviousState = CurrentState;
+                CurrentState = EnemyState.Waiting;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Mob")
+        {
+            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            if (mb.ownerId == ownerId)
+            {
+                CurrentState = PreviousState;
+            }
+            
+        }
+    }
 
 
 
@@ -102,6 +137,13 @@ public class MobBehaviourNodes : MonoBehaviour
 
             case EnemyState.Fighting:
 
+                Enemy.health -= Mathf.RoundToInt(damage * Time.deltaTime);
+                if (Enemy.health < 0)
+                {
+                    
+                    Destroy(Enemy.gameObject);
+                    CurrentState = PreviousState;
+                }
                 break;
         }
 
@@ -127,7 +169,11 @@ public class MobBehaviourNodes : MonoBehaviour
             return tMin;
         }
 
+        public IEnumerator KillEnemy()
+        {
+        yield return new WaitForSeconds(0.1f);
 
+        }
 
 
 
