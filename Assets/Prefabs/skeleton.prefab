@@ -59,6 +59,8 @@ MonoBehaviour:
   attackRange: 20
   LaneIndex: 0
   ownerId: -1
+  FightEnemy: {fileID: 0}
+  CurrentState: 1
 --- !u!195 &7354314796375051792
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 014a786a87a1c3f51a4a6ad5788cdf80, type: 3}
+  - {fileID: 2100000, guid: 7e83188ed743c2c078a8905cd4bdb748, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
