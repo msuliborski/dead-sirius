@@ -124,13 +124,13 @@ public class AINode : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[lane].position, Quaternion.identity);
-                mob.GetComponent<NavMeshAgent>().speed = mobs[ID].GetComponent<MobBehaviour>().movingSpeed;
+               
             }
                 
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-                mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
+                
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 if (queue.Count < maxQueue)
@@ -140,9 +140,10 @@ public class AINode : MonoBehaviour
                 }
             }
             
-            MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
-
-            enemy.baseTarget = _enemyBase.transform;
+            MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
+            if (lane == 0) enemy.Nodes = nodes1;
+            else if (lane == 1) enemy.Nodes = nodes2;
+            else enemy.Nodes = nodes3;
             enemy.LaneIndex = lane;
             enemy.ownerId = 2;
 
@@ -169,9 +170,12 @@ public class AINode : MonoBehaviour
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
             mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
-            MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
+            MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = chosenLane;
+            if (chosenLane == 0) enemy.Nodes = nodes1;
+            else if (chosenLane == 1) enemy.Nodes = nodes2;
+            else enemy.Nodes = nodes3;
             enemy.ownerId = 2;
             queue.RemoveAt(0);
             lanes.RemoveAt(0);
