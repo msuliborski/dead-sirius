@@ -26,13 +26,14 @@ public class PlayerControllsNodes : MonoBehaviour
     public List<Transform> nodes3;
 //    public bool Blocked = false;
     public bool[] isBlocked = new bool[3];
+    private AudioSource source;
     
 
     
     
    public void Start()
    {
-       
+       source = GetComponent<AudioSource>();
         _manager = GetComponent<PlayerManager>();
         _flag.transform.position = spawns[0].position;
         canSpawn = true;
@@ -77,6 +78,7 @@ public class PlayerControllsNodes : MonoBehaviour
             if (queue.Count == 0)
             {
                 mob = Instantiate(mobs[ID], spawns[flagCount].position, Quaternion.identity);
+                source.PlayOneShot(source.clip);
                 //AINode.mobsKinds[flagCount][ID]++;
 
             }
@@ -84,6 +86,7 @@ public class PlayerControllsNodes : MonoBehaviour
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                source.PlayOneShot(source.clip);
                 //mob.transform.name = "PlayerMob";
                 //AINode.mobsKinds[lanes[0]][queue[0]]++;
                 queue.RemoveAt(0);
@@ -127,6 +130,7 @@ public class PlayerControllsNodes : MonoBehaviour
         {
            if (!isBlocked[lanes[0]]) {
                 GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                source.PlayOneShot(source.clip);
                 //AINode.mobsKinds[lanes[0]][queue[0]]++;
                 MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
                 if (lanes[0] == 0) enemy.Nodes = nodes1;
