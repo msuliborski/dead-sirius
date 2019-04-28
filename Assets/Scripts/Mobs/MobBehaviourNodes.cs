@@ -32,6 +32,8 @@ public class MobBehaviourNodes : MonoBehaviour
 
     public enum EnemyState { Fighting, Moving, Rotating };
     public EnemyState CurrentState = EnemyState.Moving;
+    public EnemyState PreviousState;
+    public MobBehaviourNodes Enemy;
     public void PrintNodes()
     {
         foreach (var node in Nodes) Debug.Log(node);
@@ -58,8 +60,26 @@ public class MobBehaviourNodes : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Mob")
+        {
+            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            if(mb.ownerId != ownerId)
+            {
+                PreviousState = CurrentState;
+                CurrentState = EnemyState.Fighting;
+                Enemy = mb;
+            }
+            else
+            {
+
+            }
+        }
+    }
 
 
+    
 
     void Update()
     {
@@ -101,6 +121,8 @@ public class MobBehaviourNodes : MonoBehaviour
                 break;
 
             case EnemyState.Fighting:
+
+                Enemy.health -= Mathf.RoundToInt(damage * Time.deltaTime);
 
                 break;
         }

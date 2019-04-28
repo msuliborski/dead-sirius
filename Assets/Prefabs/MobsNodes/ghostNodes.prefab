@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5345496185421628402}
   - component: {fileID: 2329263202961254174}
+  - component: {fileID: 3264435656307625646}
   m_Layer: 9
   m_Name: ghostNodes
   m_TagString: Mob
@@ -50,10 +51,10 @@ MonoBehaviour:
   Nodes: []
   nodeIndex: 0
   targetRot: {x: 0, y: 0, z: 0, w: 0}
-  health: 0
+  health: 300
   healthCost: 0
   healthReward: 0
-  damage: 0
+  damage: 100
   attackSpeed: 2
   movingSpeed: 5
   rotatingSpeed: 80
@@ -64,6 +65,21 @@ MonoBehaviour:
   towerAttackEffect: {fileID: 1877830511, guid: 09043cdb5ba4ab84eb6af63f091a3b2a,
     type: 3}
   CurrentState: 1
+  PreviousState: 0
+  Enemy: {fileID: 0}
+--- !u!65 &3264435656307625646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5345496185421628408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 15.974121}
+  m_Center: {x: 0, y: 0, z: -4.640271}
 --- !u!1 &7712260795492190870
 GameObject:
   m_ObjectHideFlags: 0
