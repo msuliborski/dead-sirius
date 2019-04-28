@@ -90,6 +90,7 @@ public class PlayerControllsNodes : MonoBehaviour
             else if (flagCount == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
             enemy.LaneIndex = flagCount;
+            enemy.ownerId = 1;
             enemy.TypeIndex = ID;
 
             canSpawn = false;

@@ -161,7 +161,7 @@ public class MobBehaviourNodes : MonoBehaviour
             foreach (GameObject t in enemies)
             {
                 float dist = Vector3.Distance(t.transform.position, currentPos);
-                if (dist < minDist && t.GetComponent<MobBehaviour>().ownerId != ownerId && LaneIndex == t.GetComponent<MobBehaviour>().LaneIndex)
+                if (dist < minDist && t.GetComponent<MobBehaviourNodes>().ownerId != ownerId && LaneIndex == t.GetComponent<MobBehaviourNodes>().LaneIndex)
                 {
                     tMin = t;
                     minDist = dist;
