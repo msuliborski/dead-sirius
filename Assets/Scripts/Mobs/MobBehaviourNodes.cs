@@ -66,7 +66,6 @@ public class MobBehaviourNodes : MonoBehaviour
         if (other.tag == "Mob")
         {
             MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
-            if (mb == null) mb = other.transform.GetComponentInParent<MobBehaviourNodes>();
             if(mb.ownerId != ownerId)
             {
                 PreviousState = CurrentState;
