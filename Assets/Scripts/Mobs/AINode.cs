@@ -7,7 +7,7 @@ public class AINode : MonoBehaviour
 {
     public float health;
     public float maxHealth;
-    private int maxQueue = 5;
+    private int maxQueue = 3;
     public static int[][] mobsKinds = new int[3][];
     private float[] laneChances = new float[3];
     private float[] kindChances = new float[3];
@@ -87,7 +87,7 @@ public class AINode : MonoBehaviour
         /////////////Choosing mob/////////////////
         for (int i = 0; i < 3; i++)
         {
-            kindChances[i] += mobsKinds[chosenLane][i] * 4;
+            kindChances[i] += mobsKinds[chosenLane][i] * 10;
         }
 
         sum = 0;
@@ -110,15 +110,15 @@ public class AINode : MonoBehaviour
         else 
             chosenKind = 0;
         
-        _random = Random.Range(0, 1);
-        if (_random <= health / maxHealth) 
-            spawnMob(chosenKind, chosenLane);
+//        
+//        _random = Random.Range(0, 1);
+//        if (_random <= health / maxHealth) 
+//            spawnMob(chosenKind, chosenLane);
             
     }
 
     private void updateModInfo() {
         GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
-        Debug.Log("CHUJUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + mobs.Length);
         
         mobsKinds = new int[3][];
         for (int i = 0; i < 3; i++)
@@ -128,10 +128,6 @@ public class AINode : MonoBehaviour
             if (mob.GetComponent<MobBehaviourNodes>().ownerId != 2)
                 mobsKinds[mob.GetComponent<MobBehaviourNodes>().LaneIndex][mob.GetComponent<MobBehaviourNodes>().TypeIndex]++;
         }
-
-            
-        
-
     }
     
     public void spawnMob(int ID, int lane) {
