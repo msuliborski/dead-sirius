@@ -151,14 +151,14 @@ public class MobBehaviourNodes : MonoBehaviour
                         {
                             case 1:
                                 GameObject AI = GameObject.Find("EnemyNode");
-                                AI.GetComponent<AINode>().health -= 500;
+                                AI.GetComponent<AINode>().health -= 300;
 
                                 break;
 
                             case 2:
 
                                 GameObject player = GameObject.Find("PlayerNode");
-                                player.GetComponent<PlayerControllsNodes>().health -= 500;
+                                player.GetComponent<PlayerControllsNodes>().health -= 300;
 
                                 break;
                         }

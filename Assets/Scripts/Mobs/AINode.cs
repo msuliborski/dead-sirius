@@ -86,32 +86,34 @@ public class AINode : MonoBehaviour
             chosenLane = 2;
         }
         //Debug.Log(chosenLane);
-        
+
         /////////////Choosing mob/////////////////
-        for (int i = 0; i < 3; i++)
-        {
-            kindChances[i] += mobsKinds[chosenLane][i] * 10;
-        }
+        /* for (int i = 0; i < 3; i++)
+         {
+             kindChances[i] += mobsKinds[chosenLane][i] * 10;
+         }
 
-        sum = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            sum += kindChances[i];
-        }
+         sum = 0;
+         for (int i = 0; i < 3; i++)
+         {
+             sum += kindChances[i];
+         }
 
 
-        _randomMob = Random.Range(0, 1);
+         _randomMob = Random.Range(0, 1);
 
-        float M0Chance = kindChances[0] / sum;
-        float M1Chance = kindChances[1] / sum;
-        float M2Chance = kindChances[2] / sum;
+         float M0Chance = kindChances[0] / sum;
+         float M1Chance = kindChances[1] / sum;
+         float M2Chance = kindChances[2] / sum;
 
-        if (_randomMob < M0Chance)
-            chosenKind = 2;
-        else if (_randomMob >= M2Chance && _randomMob < M0Chance+M1Chance)
-            chosenKind = 1;
-        else 
-            chosenKind = 0;
+         if (_randomMob < M0Chance)
+             chosenKind = 2;
+         else if (_randomMob >= M2Chance && _randomMob < M0Chance+M1Chance)
+             chosenKind = 1;
+         else 
+             chosenKind = 0;*/
+
+        chosenKind = Random.Range(0, 3);
         
         spawnMob(chosenKind, chosenLane);
             
