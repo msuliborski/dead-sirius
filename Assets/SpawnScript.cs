@@ -17,13 +17,13 @@ public class SpawnScript : MonoBehaviour
         else if (other.CompareTag("Mob"))
             other.GetComponent<MobBehaviour>().GetComponent<AINode>().Blocked = false;*/
         
-        Debug.Log("kuuuuurrrwa1");
+        //Debug.Log("kuuuuurrrwa1");
         if (other.CompareTag("Mob")) {
             //Debug.Log("kurrrrrrwa2");
             
             
             MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
-            Debug.Log("OwnerID: " + mb.ownerId + ", id: " + ownerId);
+            //Debug.Log("OwnerID: " + mb.ownerId + ", id: " + ownerId);
             if (mb.ownerId == ownerId) {
                 
                 

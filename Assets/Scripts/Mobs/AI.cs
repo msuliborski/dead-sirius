@@ -21,7 +21,7 @@ public class AI : MonoBehaviour
     public List<Transform> nodes1;
     public List<Transform> nodes2;
     public List<Transform> nodes3;
-
+    public bool[] isBlocked = new bool[3];
     private int chosenLane;
     private int chosenKind;
 
@@ -167,15 +167,18 @@ public class AI : MonoBehaviour
         canSpawn = true;
         if (queue.Count != 0)
         {
-            GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-            mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
-            MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
-            enemy.baseTarget = _enemyBase.transform;
-            enemy.LaneIndex = chosenLane;
-            enemy.ownerId = 2;
-            queue.RemoveAt(0);
-            lanes.RemoveAt(0);
-            canSpawn = false;
+            if (!isBlocked[lanes[0]])
+            {
+                GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
+                MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
+                enemy.baseTarget = _enemyBase.transform;
+                enemy.LaneIndex = chosenLane;
+                enemy.ownerId = 2;
+                queue.RemoveAt(0);
+                lanes.RemoveAt(0);
+                canSpawn = false;
+            }
             StartCoroutine(cooldown(ID, 5f));
         }
     }
