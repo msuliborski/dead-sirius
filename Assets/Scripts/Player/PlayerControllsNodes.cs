@@ -10,6 +10,7 @@ public class PlayerControllsNodes : MonoBehaviour
     
     [SerializeField] private GameObject flag;
     [SerializeField] private int maxQueue = 5;
+    public static int queueCount = 0;
     public int health;
     public float maxHealth;
     public int flagCount = 0;
@@ -31,13 +32,8 @@ public class PlayerControllsNodes : MonoBehaviour
    public void Start()
    {    
         _manager = GetComponent<PlayerManager>();
-
-        
-
         _flag.transform.position = spawns[0].position;
         canSpawn = true;
-        
-
    }
 
         
@@ -45,6 +41,7 @@ public class PlayerControllsNodes : MonoBehaviour
 
     void Update()
     {
+        queueCount = queue.Count();
 
         if (Input.GetKeyDown(KeyCode.U)){
             flagCount = 0;
