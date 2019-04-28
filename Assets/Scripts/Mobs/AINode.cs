@@ -51,7 +51,7 @@ public class AINode : MonoBehaviour
             {
                 laneChances[i] += mobsKinds[i][j] * 3;
             }
-            Debug.Log(i + "/" + laneChances[i]);
+            //Debug.Log(i + "/" + laneChances[i]);
         }
 
         float sum = 0;
@@ -59,10 +59,10 @@ public class AINode : MonoBehaviour
         {
             sum += laneChances[i];
         }
-        Debug.Log("Sum "+ sum);
+        //Debug.Log("Sum "+ sum);
 
         _randomLane = Random.Range(0f, 1f);
-        Debug.Log("Random "+ _randomLane);
+        //Debug.Log("Random "+ _randomLane);
 
         float L0Chance = laneChances[0] / sum;
         float L1Chance = laneChances[1] / sum;
@@ -79,7 +79,7 @@ public class AINode : MonoBehaviour
         {
             chosenLane = 0;
         }
-        Debug.Log(chosenLane);
+        //Debug.Log(chosenLane);
         
         /////////////Choosing mob/////////////////
         for (int i = 0; i < 3; i++)
@@ -144,6 +144,7 @@ public class AINode : MonoBehaviour
             if (lane == 0) enemy.Nodes = nodes1;
             else if (lane == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
+            enemy.PrintNodes();
             enemy.LaneIndex = lane;
             enemy.ownerId = 2;
 
@@ -169,13 +170,13 @@ public class AINode : MonoBehaviour
         if (queue.Count != 0)
         {
             GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
-            mob.GetComponent<NavMeshAgent>().speed = mobs[queue[0]].GetComponent<MobBehaviour>().movingSpeed;
             MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             enemy.baseTarget = _enemyBase.transform;
-            enemy.LaneIndex = chosenLane;
-            if (chosenLane == 0) enemy.Nodes = nodes1;
-            else if (chosenLane == 1) enemy.Nodes = nodes2;
+            enemy.LaneIndex = lanes[0];
+            if (lanes[0] == 0) enemy.Nodes = nodes1;
+            else if (lanes[0] == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
+            enemy.PrintNodes();
             enemy.ownerId = 2;
             queue.RemoveAt(0);
             lanes.RemoveAt(0);

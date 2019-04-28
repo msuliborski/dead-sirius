@@ -32,7 +32,10 @@ public class MobBehaviourNodes : MonoBehaviour
 
     public enum EnemyState { Fighting, Moving, Rotating };
     public EnemyState CurrentState = EnemyState.Moving;
-
+    public void PrintNodes()
+    {
+        foreach (var node in Nodes) Debug.Log(node);
+    }
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -62,7 +65,7 @@ public class MobBehaviourNodes : MonoBehaviour
     {
 
 
-        Debug.Log(CurrentState);
+        //Debug.Log(CurrentState);
         switch (CurrentState)
         {
             case EnemyState.Moving:
