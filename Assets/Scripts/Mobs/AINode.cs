@@ -11,9 +11,9 @@ public class AINode : MonoBehaviour
     public static int[][] mobsKinds = new int[3][];
     private float[] laneChances = new float[3];
     private float[] kindChances = new float[3];
-    private float _randomLane = 0;
-    private float _randomMob = 0;
-    private float _random = 0;
+    private double _randomLane = 0;
+    private double _randomMob = 0;
+    private double _random = 0;
     private bool canSpawn = true;
     private List<int> queue = new List<int>();
     private List<int> lanes = new List<int>();
@@ -110,10 +110,9 @@ public class AINode : MonoBehaviour
         else 
             chosenKind = 0;
         
-//        
-//        _random = Random.Range(0, 1);
-//        if (_random <= health / maxHealth) 
-//            spawnMob(chosenKind, chosenLane);
+        _random = Random.Range(0, 1);
+        if (_random <= ((health*1 / maxHealth*1)*1.5f)+0.2) 
+            spawnMob(chosenKind, chosenLane);
             
     }
 
