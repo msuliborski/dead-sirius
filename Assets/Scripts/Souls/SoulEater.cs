@@ -5,8 +5,12 @@ using UnityEngine;
 public class SoulEater : MonoBehaviour
 {
 
-    private MobBehaviour mb;
-    
+    private MobBehaviourNodes mb;
+    private void Start()
+    {
+        mb = transform.GetComponentInParent<MobBehaviourNodes>();   
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Soul")

@@ -24,7 +24,8 @@ public class SoulGenerator : MonoBehaviour
         }
         int randIndex = Random.Range(0, SoulSpawns.Count - 1);
         spawnPoint = SoulSpawns[randIndex];
-        Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject tyChuju = Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
+        tyChuju.transform.tag = "Soul";
         ActiveSouls++;
         StartCoroutine(SpawnSoul());
     }
@@ -45,7 +46,9 @@ public class SoulGenerator : MonoBehaviour
         yield return new WaitForSeconds(delay);
         int randIndex = Random.Range(0, SoulSpawns.Count - 1);
         spawnPoint = SoulSpawns[randIndex];
-        Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject tyChuju = Instantiate(soulPrefab, spawnPoint.position, spawnPoint.rotation);
+        tyChuju.transform.tag = "Soul";
+
         ActiveSouls++;
         if (ActiveSouls < 2) StartCoroutine(SpawnSoul());
     }
