@@ -118,6 +118,7 @@ public class AINode : MonoBehaviour
 
     private void updateModInfo() {
         GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
+        Debug.Log("CHUJUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + mobs.Length);
         
         mobsKinds = new int[3][];
         for (int i = 0; i < 3; i++)
