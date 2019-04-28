@@ -14,7 +14,7 @@ public class SoulEater : MonoBehaviour
         {
             if (mb.ownerId == 1)
                 mb.Owner.GetComponent<PlayerControlls>().Health += 450;
-            else // same for AI
+            else mb.Owner.GetComponent<AI>().Health += 450;
 
             Destroy(other.gameObject);
 

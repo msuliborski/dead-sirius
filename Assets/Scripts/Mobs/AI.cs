@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-    [SerializeField] private float _hp;
+    public float Health;
     private int maxQueue = 5;
     public static int[][] mobsKinds = new int[3][];
     private float[] laneChances = new float[3];
@@ -141,7 +141,7 @@ public class AI : MonoBehaviour
 
             enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = lane;
-            enemy.ownerId = 1;
+            enemy.ownerId = 2;
 
             canSpawn = false;
             
@@ -169,7 +169,7 @@ public class AI : MonoBehaviour
             MobBehaviour enemy = mob.GetComponent<MobBehaviour>();
             enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = chosenLane;
-            enemy.ownerId = 1;
+            enemy.ownerId = 2;
             queue.RemoveAt(0);
             lanes.RemoveAt(0);
             canSpawn = false;

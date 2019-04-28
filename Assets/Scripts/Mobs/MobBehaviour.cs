@@ -23,6 +23,11 @@ public class MobBehaviour : MonoBehaviour {
     public int LaneIndex;
     public int ownerId;
     private bool isAttacking = false;
+    public MobBehaviour FightEnemy;
+
+
+    public enum EnemyState { Fighting, Moving };
+    public EnemyState CurrentState = EnemyState.Moving;
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -30,9 +35,10 @@ public class MobBehaviour : MonoBehaviour {
             Owner = GameObject.Find("Player");
             baseTarget = GameObject.Find("Base2").transform;
         }
-        else { //AI
-          
-            baseTarget = GameObject.Find("Base1").transform;  
+        else {
+            Owner = GameObject.Find("Enemy");
+            baseTarget = GameObject.Find("Base1").transform;
+
         }
         
 
@@ -40,11 +46,55 @@ public class MobBehaviour : MonoBehaviour {
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Mob" && FightEnemy == null)
+        {
+
+            MobBehaviour otherMb = GetComponent<MobBehaviour>();
+            if (otherMb.ownerId != ownerId)
+            {
+                //otherMb.agent.enabled = false;
+                //otherMb.CurrentState = EnemyState.Fighting;
+                //otherMb.FightEnemy = this;
+                FightEnemy = otherMb;
+                CurrentState = EnemyState.Fighting;
+                agent.enabled = false;
+            }
+        }
+    }
+
+
+
     void Update() {
 
-        
-            GameObject targetMob = getClosestEnemyInRange();
-            GameObject lockTarget = targetMob;
+        if (health < 0) Destroy(gameObject);
+        Debug.Log(CurrentState);
+        switch (CurrentState)
+        {
+            case EnemyState.Moving:
+                GameObject targetMob = GetClosestEnemy(GameObject.FindGameObjectsWithTag("Mob"));
+                if (targetMob != null) agent.SetDestination(targetMob.transform.position);
+                else agent.SetDestination(baseTarget.transform.position);
+                break;
+
+            case EnemyState.Fighting:
+                if (FightEnemy == null)
+                {
+                    CurrentState = EnemyState.Moving;
+                    agent.enabled = true;
+
+                }
+                FightEnemy.health -= Mathf.RoundToInt(attackSpeed * damage * Time.deltaTime);
+               
+
+                break;
+        }
+       
+
+
+
+        /*GameObject lockTarget = targetMob;
 
             if (health <= 0) Destroy(gameObject);
 
@@ -77,27 +127,49 @@ public class MobBehaviour : MonoBehaviour {
             if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
             {
                 transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
-            }
+            }*/
         
         
         
     }
 
-    IEnumerator attack(GameObject target) {
+    /*IEnumerator attack(GameObject target) {
         isAttacking = true;
         yield return new WaitForSeconds(attackSpeed);
         //animacja
         target.GetComponent<MobBehaviour>().health -= damage;
         isAttacking = false;
+    }*/
+
+
+    GameObject GetClosestEnemy(GameObject[] enemies)
+    {
+        GameObject tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (GameObject t in enemies)
+        {
+            float dist = Vector3.Distance(t.transform.position, currentPos);
+            if (dist < minDist && t.GetComponent<MobBehaviour>().ownerId != ownerId && LaneIndex == t.GetComponent<MobBehaviour>().LaneIndex)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
     }
-    
-    GameObject getClosestEnemyInRange() {
+
+
+
+
+    /*GameObject getClosestEnemyInRange() {
+        Debug.Log("aaaa");
         GameObject[] mobs; 
         GameObject closestMob = null; 
-        mobs = GameObject.FindGameObjectsWithTag("Mob");
         
         
-        var radiusDistance = 200; // the range of distance
+        
+        var radiusDistance = 2000; // the range of distance
         var position = transform.position; 
         
         // Iterate through them and find the objects within range 
@@ -112,14 +184,14 @@ public class MobBehaviour : MonoBehaviour {
             
 
 
-            if (distanceToMob < radiusDistance && distanceToMob < distanceToClosestMob && mob.GetComponent<MobBehaviour>().ownerId != ownerId && LaneIndex == mob.GetComponent<MobBehaviour>().LaneIndex) {
-                closestMob = mob;
-            } 
+            //if (distanceToMob < radiusDistance && distanceToMob < distanceToClosestMob && ) {
+             //   closestMob = mob;
+            //} 
         }
         if (closestMob != null) Debug.Log("length to closest: " + (closestMob.transform.position - position).sqrMagnitude);
         return closestMob;
 
 
 
-    }
+    }*/
 }
