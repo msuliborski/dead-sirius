@@ -4,28 +4,65 @@ using UnityEngine;
 
 public class SpawnScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-   // public bool block;
-    void Start()
-    {
-        
-    }
+  
 
-    // Update is called once per frame
-    void Update() {
-        //block = false;
-    }
-
-    private void OnTriggerStay(Collider other) {
-       // block = true;
-    }
+    public int ownerId;
+    public GameObject Owner;
+    public int selfId;
     
-//    private void OnTriggerExit(Collider other)
-//    {
-//        if (other.CompareTag("Mob")) 
-//            other.GetComponent<MobBehaviour>().GetComponent<PlayerControllsNodes>().Blocked = false;
-//        else if (other.CompareTag("Mob"))
-//            other.GetComponent<MobBehaviour>().GetComponent<AINode>().Blocked = false;
-//
-//    }
+    private void OnTriggerStay(Collider other)
+    {
+        /*if (other.CompareTag("Mob")) 
+            other.GetComponent<MobBehaviour>().GetComponent<PlayerControllsNodes>().Blocked = false;
+        else if (other.CompareTag("Mob"))
+            other.GetComponent<MobBehaviour>().GetComponent<AINode>().Blocked = false;*/
+        
+        Debug.Log("kuuuuurrrwa1");
+        if (other.CompareTag("Mob")) {
+            //Debug.Log("kurrrrrrwa2");
+            
+            
+            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            Debug.Log("OwnerID: " + mb.ownerId + ", id: " + ownerId);
+            if (mb.ownerId == ownerId) {
+                
+                
+                switch (ownerId) {
+                    case 1:
+                        
+                        Owner.GetComponent<PlayerControllsNodes>().isBlocked[selfId] = true;
+
+                        break;
+                    case 2:
+                        Owner.GetComponent<AINode>().isBlocked[selfId] = true;
+                        break;
+                }
+                
+                
+            }
+        }
+        
+
+    }
+
+    private void OnTriggerExit(Collider other) 
+    {
+        if (other.CompareTag("Mob")) {
+            MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
+            if (mb.ownerId == ownerId) {
+
+                switch (ownerId) {
+                    case 1:
+                        Owner.GetComponent<PlayerControllsNodes>().isBlocked[selfId] = false;
+
+                        break;
+                    case 2:
+                        Owner.GetComponent<AINode>().isBlocked[selfId] = false;
+                        break;
+                }
+                
+                
+            }
+        }
+    }
 }

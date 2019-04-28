@@ -24,6 +24,7 @@ public class AINode : MonoBehaviour
     public List<Transform> nodes2;
     public List<Transform> nodes3;
 //    public bool Blocked = false;
+    public bool[] isBlocked = new bool[3];
 
 
     public int chosenLane;
@@ -56,7 +57,7 @@ public class AINode : MonoBehaviour
             {
                 laneChances[i] += mobsKinds[i][j] * 50;
             }
-            Debug.Log(i + "/" + laneChances[i]);
+            //Debug.Log(i + "/" + laneChances[i]);
         }
 
         float sum = 0;
@@ -64,10 +65,10 @@ public class AINode : MonoBehaviour
         {
             sum += laneChances[i];
         }
-        Debug.Log("Sum "+ sum);
+        //Debug.Log("Sum "+ sum);
 
         _randomLane = Random.Range(0f, 1f);
-        Debug.Log("Random "+ _randomLane);
+        //Debug.Log("Random "+ _randomLane);
 
         float L0Chance = laneChances[0] / sum;
         float L1Chance = laneChances[1] / sum;
@@ -84,7 +85,7 @@ public class AINode : MonoBehaviour
         {
             chosenLane = 2;
         }
-        Debug.Log(chosenLane);
+        //Debug.Log(chosenLane);
         
         /////////////Choosing mob/////////////////
         for (int i = 0; i < 3; i++)

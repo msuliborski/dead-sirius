@@ -24,6 +24,7 @@ public class PlayerControllsNodes : MonoBehaviour
     public List<Transform> nodes2;
     public List<Transform> nodes3;
 //    public bool Blocked = false;
+    public bool[] isBlocked = new bool[3];
 
     
     
@@ -70,7 +71,7 @@ public class PlayerControllsNodes : MonoBehaviour
 
     public void spawnMob(int ID) {
         
-        if (canSpawn)// && !Blocked)
+        if (canSpawn && !isBlocked[flagCount])
         {
 
             GameObject mob;
@@ -84,6 +85,7 @@ public class PlayerControllsNodes : MonoBehaviour
             else
             {
                 mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
+                //mob.transform.name = "PlayerMob";
                 //AINode.mobsKinds[lanes[0]][queue[0]]++;
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
@@ -124,7 +126,7 @@ public class PlayerControllsNodes : MonoBehaviour
         canSpawn = true;
         if (queue.Count != 0)
         {
-           // if (!Blocked) {
+           if (!isBlocked[lanes[0]]) {
                 GameObject mob = Instantiate(mobs[queue[0]], spawns[lanes[0]].position, Quaternion.identity);
                 //AINode.mobsKinds[lanes[0]][queue[0]]++;
                 MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
@@ -138,7 +140,7 @@ public class PlayerControllsNodes : MonoBehaviour
                 queue.RemoveAt(0);
                 lanes.RemoveAt(0);
                 canSpawn = false;
-         //   }
+            }
 
             StartCoroutine(cooldown(ID, 2f));
         }
