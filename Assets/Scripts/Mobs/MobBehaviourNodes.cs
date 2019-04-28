@@ -73,7 +73,8 @@ public class MobBehaviourNodes : MonoBehaviour
                 CurrentState = EnemyState.Fighting;
                 Enemy = mb;
             }
-            else if (other.transform.name == "back")
+            //else if (other.transform.name == "back")
+            else if (Enemy == null)
             {
                 PreviousState = CurrentState;
                 CurrentState = EnemyState.Waiting;
@@ -141,8 +142,8 @@ public class MobBehaviourNodes : MonoBehaviour
                 Enemy.health -= Mathf.RoundToInt(damage * Time.deltaTime);
                 if (Enemy.health < 0)
                 {
-                    
-                    Destroy(Enemy.gameObject);
+
+                    StartCoroutine(KillEnemy());
                     CurrentState = PreviousState;
                 }
                 break;
@@ -172,7 +173,10 @@ public class MobBehaviourNodes : MonoBehaviour
 
         public IEnumerator KillEnemy()
         {
-        yield return new WaitForSeconds(0.1f);
+            Enemy.gameObject.SetActive(false);
+            Enemy.GetComponent<Rigidbody>().AddForce(Vector3.up * 10000);
+            yield return new WaitForSeconds(0.1f);
+            Destroy(Enemy);
 
         }
 
