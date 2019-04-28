@@ -125,7 +125,7 @@ public class AINode : MonoBehaviour
             mobsKinds[i] = new int[3];
         
         foreach (var mob in mobs) {
-            mobsKinds[mob.GetComponent<MobBehaviour>().LaneIndex][mob.GetComponent<MobBehaviour>().TypeIndex]++;
+            mobsKinds[mob.GetComponent<MobBehaviourNodes>().LaneIndex][mob.GetComponent<MobBehaviourNodes>().TypeIndex]++;
         }
 
             
