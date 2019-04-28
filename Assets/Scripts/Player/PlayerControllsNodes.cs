@@ -92,6 +92,7 @@ public class PlayerControllsNodes : MonoBehaviour
             enemy.LaneIndex = flagCount;
             enemy.ownerId = 1;
             enemy.TypeIndex = ID;
+            health -= enemy.healthCost;
 
             canSpawn = false;
             StartCoroutine(cooldown(ID, enemy.GetComponent<MobBehaviourNodes> ().spawnTime));
@@ -123,6 +124,7 @@ public class PlayerControllsNodes : MonoBehaviour
             enemy.ownerId = 1;
             enemy.LaneIndex = lanes[0];
             enemy.TypeIndex = ID;
+            health -= enemy.healthCost;
             queue.RemoveAt(0);
             lanes.RemoveAt(0);
             canSpawn = false;

@@ -7,13 +7,13 @@ public class AINode : MonoBehaviour
 {
     public float health;
     public float maxHealth;
-    private int maxQueue = 5;
+    private int maxQueue = 3;
     public static int[][] mobsKinds = new int[3][];
     private float[] laneChances = new float[3];
     private float[] kindChances = new float[3];
-    private float _randomLane = 0;
-    private float _randomMob = 0;
-    private float _random = 0;
+    private double _randomLane = 0;
+    private double _randomMob = 0;
+    private double _random = 0;
     private bool canSpawn = true;
     private List<int> queue = new List<int>();
     private List<int> lanes = new List<int>();
@@ -87,7 +87,7 @@ public class AINode : MonoBehaviour
         /////////////Choosing mob/////////////////
         for (int i = 0; i < 3; i++)
         {
-            kindChances[i] += mobsKinds[chosenLane][i] * 4;
+            kindChances[i] += mobsKinds[chosenLane][i] * 10;
         }
 
         sum = 0;
@@ -111,14 +111,13 @@ public class AINode : MonoBehaviour
             chosenKind = 0;
         
         _random = Random.Range(0, 1);
-        if (_random <= health / maxHealth) 
+        if (_random <= ((health*1 / maxHealth*1)*1.5f)+0.2) 
             spawnMob(chosenKind, chosenLane);
             
     }
 
     private void updateModInfo() {
         GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
-        Debug.Log("CHUJUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + mobs.Length);
         
         mobsKinds = new int[3][];
         for (int i = 0; i < 3; i++)
@@ -128,10 +127,6 @@ public class AINode : MonoBehaviour
             if (mob.GetComponent<MobBehaviourNodes>().ownerId != 2)
                 mobsKinds[mob.GetComponent<MobBehaviourNodes>().LaneIndex][mob.GetComponent<MobBehaviourNodes>().TypeIndex]++;
         }
-
-            
-        
-
     }
     
     public void spawnMob(int ID, int lane) {
@@ -166,6 +161,7 @@ public class AINode : MonoBehaviour
             enemy.PrintNodes();
             enemy.LaneIndex = lane;
             enemy.ownerId = 2;
+            health -= enemy.healthCost;
 
             canSpawn = false;
             
@@ -192,6 +188,7 @@ public class AINode : MonoBehaviour
             MobBehaviourNodes enemy = mob.GetComponent<MobBehaviourNodes>();
             enemy.baseTarget = _enemyBase.transform;
             enemy.LaneIndex = lanes[0];
+            health -= enemy.healthCost;
             if (lanes[0] == 0) enemy.Nodes = nodes1;
             else if (lanes[0] == 1) enemy.Nodes = nodes2;
             else enemy.Nodes = nodes3;
