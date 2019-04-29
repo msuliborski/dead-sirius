@@ -1145,7 +1145,7 @@ MonoBehaviour:
   targetRot: {x: 0, y: 0, z: 0, w: 0}
   health: 300
   healthCost: 200
-  healthReward: 0
+  healthReward: 50
   damage: 100
   attackSpeed: 2
   movingSpeed: 5

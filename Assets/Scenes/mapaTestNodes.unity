@@ -5983,7 +5983,7 @@ BoxCollider:
   m_GameObject: {fileID: 458739062}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 30, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -12921,7 +12921,7 @@ BoxCollider:
   m_GameObject: {fileID: 925436066}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 30, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -18129,7 +18129,7 @@ BoxCollider:
   m_GameObject: {fileID: 1308820568}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 30, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -21514,7 +21514,7 @@ BoxCollider:
   m_GameObject: {fileID: 1539770954}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 30, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -24570,7 +24570,7 @@ BoxCollider:
   m_GameObject: {fileID: 1766752046}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 30, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -25312,7 +25312,7 @@ BoxCollider:
   m_GameObject: {fileID: 1826699462}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 30, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
@@ -26302,11 +26302,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5699873896825040759, guid: cf3f943ca5063d44b9482461f4ea39ac,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerNode
-      objectReference: {fileID: 0}
     - target: {fileID: 7332746492028065947, guid: cf3f943ca5063d44b9482461f4ea39ac,
         type: 3}
       propertyPath: spawns.Array.data[0]
@@ -26377,6 +26372,11 @@ PrefabInstance:
       propertyPath: nodes3.Array.data[4]
       value: 
       objectReference: {fileID: 925436067}
+    - target: {fileID: 5699873896825040759, guid: cf3f943ca5063d44b9482461f4ea39ac,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerNode
+      objectReference: {fileID: 0}
     - target: {fileID: 5020202882695729545, guid: cf3f943ca5063d44b9482461f4ea39ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26432,14 +26432,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1038408195, guid: cf3f943ca5063d44b9482461f4ea39ac, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3183401905977408724, guid: cf3f943ca5063d44b9482461f4ea39ac,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038408195, guid: cf3f943ca5063d44b9482461f4ea39ac, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3183401905977408724, guid: cf3f943ca5063d44b9482461f4ea39ac, type: 3}

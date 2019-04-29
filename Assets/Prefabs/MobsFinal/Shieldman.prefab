@@ -602,7 +602,7 @@ MonoBehaviour:
   targetRot: {x: 0, y: 0, z: 0, w: 0}
   health: 500
   healthCost: 400
-  healthReward: 0
+  healthReward: 70
   damage: 180
   attackSpeed: 3
   movingSpeed: 3
@@ -1471,10 +1471,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1427655457}
     m_Modifications:
-    - target: {fileID: 100004, guid: f18277b26d2d4b558adc75853d071544, type: 3}
-      propertyPath: m_Name
-      value: RED_SHIELD
-      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: f18277b26d2d4b558adc75853d071544, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0068397895
@@ -1530,6 +1526,10 @@ PrefabInstance:
     - target: {fileID: 400004, guid: f18277b26d2d4b558adc75853d071544, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: f18277b26d2d4b558adc75853d071544, type: 3}
+      propertyPath: m_Name
+      value: RED_SHIELD
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f18277b26d2d4b558adc75853d071544, type: 3}
