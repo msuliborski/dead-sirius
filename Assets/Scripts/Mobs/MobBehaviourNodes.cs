@@ -80,7 +80,7 @@ public class MobBehaviourNodes : MonoBehaviour
         if (other.tag == "Mob")
         {
             MobBehaviourNodes mb = other.GetComponent<MobBehaviourNodes>();
-            if(mb.ownerId != ownerId)
+            if(mb.ownerId != ownerId && CurrentState != EnemyState.Fighting)
             {
                 PreviousState = CurrentState;
                 CurrentState = EnemyState.Fighting;
@@ -91,7 +91,7 @@ public class MobBehaviourNodes : MonoBehaviour
         else if (other.CompareTag("MobTag"))
         {
             MobBehaviourNodes mb = other.GetComponentInParent<MobBehaviourNodes>();
-            if (mb.ownerId == ownerId) {
+            if (mb.ownerId == ownerId && CurrentState != EnemyState.Waiting) {
                 _animator.SetBool("waiting", true);
                 PreviousState = CurrentState;
                 CurrentState = EnemyState.Waiting;
@@ -230,7 +230,7 @@ public class MobBehaviourNodes : MonoBehaviour
                     }
                     Enemy.CurrentState = EnemyState.Waiting;
                     Destroy(Enemy.gameObject, 2f);
-                    if (HasArrived)
+                    /*if (HasArrived)
                     {
                         switch (ownerId)
                         {
@@ -250,9 +250,9 @@ public class MobBehaviourNodes : MonoBehaviour
                         transform.GetChild(0).gameObject.SetActive(false);
                         transform.GetChild(1).gameObject.SetActive(false);
                         GetComponent<Rigidbody>().velocity = new Vector3(0f, 1000000f, 0f);
-                        PreviousState = EnemyState.Waiting;
+                        //PreviousState = EnemyState.Waiting;
                         Destroy(gameObject, 2f);
-                    }
+                    }*/
                     
                     CurrentState = PreviousState;
                 }
