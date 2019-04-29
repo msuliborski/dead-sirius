@@ -217,8 +217,8 @@ public class MobBehaviourNodes : MonoBehaviour
                 if (Enemy.health < 0)
                 {
 
-                    //Enemy.transform.GetChild(0).gameObject.SetActive(false);
-                    //Enemy.transform.GetChild(1).gameObject.SetActive(false);
+                    Enemy.transform.GetChild(0).gameObject.SetActive(false);
+                    Enemy.transform.GetChild(1).gameObject.SetActive(false);
                     Enemy.GetComponent<Rigidbody>().velocity = new Vector3(0f, 1000000f, 0f);
                     if (ownerId == 1)
                     {
@@ -247,6 +247,8 @@ public class MobBehaviourNodes : MonoBehaviour
 
                                 break;
                         }
+                        transform.GetChild(0).gameObject.SetActive(false);
+                        transform.GetChild(1).gameObject.SetActive(false);
                         GetComponent<Rigidbody>().velocity = new Vector3(0f, 1000000f, 0f);
                         PreviousState = EnemyState.Waiting;
                         Destroy(gameObject, 2f);
