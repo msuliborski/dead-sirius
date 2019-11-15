@@ -7,11 +7,11 @@ A tiny tower defense where you pay for your units by your own health points and 
   <img width="840" src="Screens/3.png">
 </p>
 
-## Download
+### Download
 All releases of the game are avaliable on the github page in the [releases](https://github.com/msuliborski/dead-sirius/releases) tab. 
 
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Cloning
 ```
