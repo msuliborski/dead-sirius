@@ -1,11 +1,14 @@
 # Dead Sirius
-A tiny tower defense where you pay for your units by your own health points and get them back from dead enemies and portals filled with fresh souls! Ludum Dare 44 (2011). 
+A tiny tower defense where you pay for your units by your own health points and get them back from dead enemies and portals filled with fresh souls! Ludum Dare 44 (2011)
 </br>
 <p align="center">
-  <img width="940" src="Screens/1.png">
-  <img width="940" src="Screens/2.png">
-  <img width="940" src="Screens/3.png">
+  <img width="840" src="Screens/1.png">
+  <img width="840" src="Screens/2.png">
+  <img width="840" src="Screens/3.png">
 </p>
+
+## Download
+All releases of the game are avaliable on the github page in the [releases](https://github.com/msuliborski/dead-sirius/releases) tab. 
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -19,8 +22,7 @@ $ git clone https://github.com/msuliborski/dead-sirius
 Using Unity Game Engine import project and hit play button. It should do everything automatically and let you run the game.
 
 ## Built with
-* [Unity](https://unity.com/) - The world’s leading
-real-time creation platform
+* [Unity](https://unity.com/) - The world’s leadingreal-time creation platform
 
 ## Authors
 * **Michał Suliborski** - [msuliborski](https://github.com/msuliborski)
