@@ -2,9 +2,9 @@
 A tiny tower defense where you pay for your units by your own health points and get them back from dead enemies and portals filled with fresh souls! Ludum Dare 44 (2011)
 </br>
 <p align="center">
-  <img width="840" src="Screens/1.png">
-  <img width="840" src="Screens/2.png">
-  <img width="840" src="Screens/3.png">
+  <img width="840" src="Screens/1.png"/>
+  <img width="840" src="Screens/2.png"/>
+  <img width="840" src="Screens/3.png"/>
 </p>
 
 ### Download
